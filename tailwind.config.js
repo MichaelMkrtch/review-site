@@ -6,10 +6,11 @@ export default {
       colors: {
         cyan: {
           350: "#0aefff",
+          250: "#70f5ff",
         },
       },
       fontFamily: {
-        sans: ['Sora', '"Plus Jakarta Sans"', 'system-ui'],
+        sans: ["Sora", '"Plus Jakarta Sans"', "system-ui"],
       },
     },
   },
