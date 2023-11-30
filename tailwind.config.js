@@ -8,6 +8,9 @@ export default {
           350: "#0aefff",
         },
       },
+      fontFamily: {
+        sans: ['Sora', '"Plus Jakarta Sans"', 'system-ui'],
+      },
     },
   },
   plugins: [],
