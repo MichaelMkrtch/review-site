@@ -35,10 +35,10 @@ const AddReviewModal = forwardRef(function Modal(props, ref) {
       </div>
       <form method="dialog">
         <div className="float-right">
-          <button className="duration200 hover:text-cyan-250 mr-4 transition-colors ease-in-out">
+          <button className="duration200 mr-4 transition-colors ease-in-out hover:text-cyan-250">
             Cancel
           </button>
-          <button className="hover:bg-cyan-250 rounded-md bg-cyan-350 px-4 py-2 transition-colors duration-200 ease-in-out">
+          <button className="rounded-md bg-cyan-350 px-4 py-2 transition-colors duration-200 ease-in-out hover:bg-cyan-250">
             Add
           </button>
         </div>
