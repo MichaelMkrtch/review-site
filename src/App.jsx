@@ -1,9 +1,14 @@
 import { useState } from "react";
-import Header from "./components/Header.jsx";
+import Reviews from "./components/Reviews.jsx";
 import Modal from "./components/Modal.jsx";
+import Search from "./components/Search.jsx";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  function handleStartAddReview() {
+    setModalIsOpen(true);
+  }
 
   function handleStopAddReview() {
     setModalIsOpen(false);
@@ -11,8 +16,10 @@ function App() {
 
   return (
     <>
-      <Modal open={modalIsOpen} onClose={handleStopAddReview} />
-      <Header />
+      <Modal open={modalIsOpen} onClose={handleStopAddReview}>
+        <Search />
+      </Modal>
+      <Reviews onAddReview={handleStartAddReview} />
     </>
   );
 }
