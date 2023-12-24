@@ -18,10 +18,10 @@ export default function Search() {
       </div>
       <form method="dialog">
         <div className="float-right">
-          <button className="duration200 mr-4 transition-colors ease-in-out hover:text-cyan-250">
+          <button className="duration200 mr-4 rounded-md px-3.5 py-1.5 transition-colors ease-in-out hover:text-cyan-250">
             Cancel
           </button>
-          <button className="rounded-md bg-cyan-350 px-4 py-2 transition-colors duration-200 ease-in-out hover:bg-cyan-250">
+          <button className="rounded-md bg-cyan-350 px-3.5 py-1.5 transition-colors duration-200 ease-in-out hover:bg-cyan-250">
             Add
           </button>
         </div>
