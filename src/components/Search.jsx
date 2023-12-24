@@ -1,4 +1,24 @@
-export default function Search() {
+import { useState } from "react";
+import axios from "axios";
+
+export default function Search({ setResults }) {
+  const [input, setInput] = useState("");
+
+  async function fetchData(value) {
+    const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+    const results = res.data.filter((user) => {
+      return (
+        value && user && user.name && user.name.toLowerCase().includes(value)
+      );
+    });
+    setResults(results);
+  }
+
+  function handleChange(value) {
+    setInput(value);
+    fetchData(input);
+  }
+
   return (
     <>
       <div className="relative mb-4">
@@ -6,6 +26,8 @@ export default function Search() {
           type="text"
           name="title"
           id="title"
+          value={input}
+          onChange={event => handleChange(event.target.value)}
           required="required"
           className="peer w-full rounded-md border-2 border-gray-200 p-2 outline-0 focus:border-cyan-350"
         />
@@ -16,16 +38,7 @@ export default function Search() {
           Search
         </label>
       </div>
-      <form method="dialog">
-        <div className="float-right">
-          <button className="duration200 mr-4 rounded-md px-3.5 py-1.5 transition-colors ease-in-out hover:text-cyan-250">
-            Cancel
-          </button>
-          <button className="rounded-md bg-cyan-350 px-3.5 py-1.5 transition-colors duration-200 ease-in-out hover:bg-cyan-250">
-            Add
-          </button>
-        </div>
-      </form>
+      <form method="dialog"></form>
     </>
   );
 }
