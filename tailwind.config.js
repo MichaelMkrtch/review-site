@@ -15,7 +15,6 @@ export default {
       animation: {
         fadein: "fadein 0.2s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
         enter: "enter 0.2s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
-        exit: "exit 0.2s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
       },
       keyframes: {
         fadein: {
@@ -25,10 +24,6 @@ export default {
         enter: {
           "0%": { transform: "scale(0.95)", opacity: "0" },
           "100%": { transform: "scale(1)", opacity: "100" },
-        },
-        exit: {
-          "0%": { transform: "scale(1)", opacity: "100" },
-          "100%": { transform: "scale(0.95)", opacity: "0" },
         },
       },
     },
