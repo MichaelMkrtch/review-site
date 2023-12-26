@@ -2,7 +2,6 @@ import { useState } from "react";
 import Reviews from "./components/Reviews.jsx";
 import Modal from "./components/Modal.jsx";
 import Search from "./components/Search.jsx";
-import SearchResults from "./components/SearchResults.jsx";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -19,8 +18,7 @@ function App() {
   return (
     <>
       <Modal open={modalIsOpen} onClose={handleStopAddReview}>
-        <Search setResults={setResults} />
-        <SearchResults results={results} />
+        <Search results={results} setResults={setResults} />
       </Modal>
       <Reviews onAddReview={handleStartAddReview} />
     </>

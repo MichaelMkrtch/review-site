@@ -1,10 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 
-import searchIcon from "../assets/search-icon.svg";
+import SearchBar from "./SearchBar.jsx";
+import SearchResultList from "./SearchResultList.jsx";
 
-export default function Search({ setResults }) {
-  const [input, setInput] = useState("");
+export default function Search({ results, setResults }) {
+  const [searchTerm, setSearchTerm] = useState("");
 
   async function fetchData(value) {
     const res = await axios.get("https://jsonplaceholder.typicode.com/users");
@@ -17,28 +18,14 @@ export default function Search({ setResults }) {
   }
 
   function handleChange(value) {
-    setInput(value);
-    fetchData(input);
+    setSearchTerm(value);
+    fetchData(searchTerm);
   }
 
   return (
     <>
-      <div className="flex justify-center align-middle">
-        <div className="flex px-2 mr-2">
-          <img src={searchIcon} />
-        </div>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          placeholder="Search"
-          value={input}
-          required="required"
-          onChange={(event) => handleChange(event.target.value)}
-          className="w-full border-gray-200 py-2 outline-none"
-        />
-      </div>
-      <form method="dialog"></form>
+      <SearchBar searchTerm={searchTerm} onChange={handleChange} />
+      <SearchResultList results={results} />
     </>
   );
 }

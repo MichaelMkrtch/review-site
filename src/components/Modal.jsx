@@ -16,7 +16,7 @@ export default function Modal({ open, children, onClose }) {
     <dialog
       ref={dialog}
       id="modal"
-      className="open:backdrop:animate-fadein open:animate-enter w-3/5 max-w-md rounded-lg px-2.5 py-5 outline-none backdrop:bg-neutral-900 backdrop:opacity-30"
+      className="open:backdrop:animate-fadein open:animate-enter w-3/5 rounded-lg px-3 py-3.5 outline-none backdrop:bg-neutral-900 backdrop:opacity-30"
       onClose={onClose}
     >
       {children}
