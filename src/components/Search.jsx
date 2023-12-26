@@ -21,7 +21,7 @@ export default function Search({ setResults }) {
 
   return (
     <>
-      <div className="relative mb-4">
+      <div className="relative">
         <input
           type="text"
           name="title"
