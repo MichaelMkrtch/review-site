@@ -5,7 +5,6 @@ import Search from "./components/Search.jsx";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [results, setResults] = useState([]);
 
   function handleStartAddReview() {
     setModalIsOpen(true);
@@ -18,7 +17,7 @@ function App() {
   return (
     <>
       <Modal open={modalIsOpen} onClose={handleStopAddReview}>
-        <Search results={results} setResults={setResults} />
+        <Search />
       </Modal>
       <Reviews onAddReview={handleStartAddReview} />
     </>
