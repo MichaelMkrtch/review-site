@@ -5,8 +5,8 @@ export default function SearchResultList({ results }) {
 
   return (
     <div className="mt-3 border-t pt-2.5">
-      {filteredResults.map((result, index) => {
-        return <SearchResult key={index}>{result.name}</SearchResult>;
+      {filteredResults.map((movie, index) => {
+        return <SearchResult key={index}>{movie.title}</SearchResult>;
       })}
     </div>
   );

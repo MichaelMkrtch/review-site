@@ -3,8 +3,9 @@ import axios from "axios";
 
 import SearchBar from "./SearchBar.jsx";
 import SearchResultList from "./SearchResultList.jsx";
+import { API_ACCESS_TOKEN } from "../../secrets.js";
 
-function debounce(func, timeout = 300) {
+function debounce(func, timeout = 350) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
@@ -15,12 +16,31 @@ function debounce(func, timeout = 300) {
 }
 
 async function fetchData(query, callback) {
-  const res = await axios.get("https://jsonplaceholder.typicode.com/users");
-  const results = res.data.filter((user) => {
+  const options = {
+    method: "GET",
+    url: "https://api.themoviedb.org/3/search/movie",
+    params: {
+      query: query,
+      include_adult: "false",
+      language: "en-US",
+      page: "1",
+    },
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_ACCESS_TOKEN}`,
+    },
+  };
+
+  const response = await axios.request(options);
+  const results = response.data.results.filter((movie) => {
     return (
-      query && user && user.name && user.name.toLowerCase().includes(query)
+      query &&
+      movie &&
+      movie.title &&
+      movie.title.toLowerCase().includes(query)
     );
   });
+  console.log(results);
   callback(results);
 }
 
