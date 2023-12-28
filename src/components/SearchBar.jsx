@@ -4,7 +4,7 @@ export default function SearchBar({ searchTerm, onChange }) {
   return (
     <div className="flex justify-center align-middle">
       <div className="mr-2 flex px-2">
-        <img src={searchIcon} />
+        <img src={searchIcon} className="pointer-events-none select-none" />
       </div>
       <input
         id="title"
