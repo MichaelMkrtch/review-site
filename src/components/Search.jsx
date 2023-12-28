@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar.jsx";
 import SearchResultList from "./SearchResultList.jsx";
 import { API_ACCESS_TOKEN } from "../../secrets.js";
 
-function debounce(func, timeout = 350) {
+function debounce(func, timeout = 300) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
@@ -31,16 +31,13 @@ async function fetchData(query, callback) {
     },
   };
 
+  // gets response and filters it to only movie titles
   const response = await axios.request(options);
   const results = response.data.results.filter((movie) => {
     return (
-      query &&
-      movie &&
-      movie.title &&
-      movie.title.toLowerCase().includes(query)
+      query && movie && movie.title && movie.title.toLowerCase().includes(query)
     );
   });
-  console.log(results);
   callback(results);
 }
 
@@ -70,15 +67,16 @@ export default function Search() {
     });
   }, [searchTerm]);
 
-  const handleChange = (value) => {
+  function handleChange(value) {
     setSearchTerm(value);
-  };
+  }
 
   return (
     <>
       <SearchBar
         searchTerm={searchTerm}
-        onChange={(value) => handleChange(value)}
+        results={searchResults}
+        onChange={handleChange}
       />
       <SearchResultList results={searchResults} />
     </>
