@@ -3,6 +3,7 @@ import axios from "axios";
 
 import SearchBar from "./SearchBar.jsx";
 import SearchResultList from "./SearchResultList.jsx";
+import { API_ACCESS_TOKEN } from "../../secrets.js";
 
 function debounce(func, timeout = 300) {
   let timer;
@@ -14,25 +15,54 @@ function debounce(func, timeout = 300) {
   };
 }
 
-async function fetchData(query, callback) {
-  const res = await axios.get("https://jsonplaceholder.typicode.com/users");
-  const results = res.data.filter((user) => {
-    return (
-      query && user && user.name && user.name.toLowerCase().includes(query)
-    );
-  });
-  callback(results);
+async function fetchData(query, controller, callback) {
+  const options = {
+    method: "GET",
+    url: "https://api.themoviedb.org/3/search/movie",
+    params: {
+      query: query,
+      include_adult: "false",
+      language: "en-US",
+      page: "1",
+    },
+    signal: controller.signal,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${API_ACCESS_TOKEN}`,
+    },
+  };
+
+  try {
+    // gets response and filters it to only movie titles
+    const response = await axios.request(options);
+    const results = response.data.results.filter((movie) => {
+      return (
+        query &&
+        movie &&
+        movie.title &&
+        movie.title.toLowerCase().includes(query)
+      );
+    });
+    callback(results);
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request cancelled");
+    } else {
+      throw error;
+    }
+  }
 }
 
 const debouncedFetchData = debounce(fetchData);
 
-export default function Search() {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function Search({ searchTerm, setSearchTerm }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const lastRequestID = useRef(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     if (!searchTerm) {
       setSearchResults([]);
       return;
@@ -42,23 +72,28 @@ export default function Search() {
     const requestID = performance.now();
     lastRequestID.current = requestID;
 
-    debouncedFetchData(searchTerm, (results) => {
+    debouncedFetchData(searchTerm, controller, (results) => {
       // Only sets data if current request is the last
       if (requestID === lastRequestID.current) {
         setSearchResults(results);
       }
     });
+
+    return () => {
+      controller.abort();
+    };
   }, [searchTerm]);
 
-  const handleChange = (value) => {
+  function handleChange(value) {
     setSearchTerm(value);
-  };
+  }
 
   return (
     <>
       <SearchBar
         searchTerm={searchTerm}
-        onChange={(value) => handleChange(value)}
+        results={searchResults}
+        onChange={handleChange}
       />
       <SearchResultList results={searchResults} />
     </>
