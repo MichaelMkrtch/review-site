@@ -15,7 +15,7 @@ function debounce(func, timeout = 300) {
   };
 }
 
-async function fetchData(query, callback) {
+async function fetchData(query, controller, callback) {
   const options = {
     method: "GET",
     url: "https://api.themoviedb.org/3/search/movie",
@@ -25,6 +25,7 @@ async function fetchData(query, callback) {
       language: "en-US",
       page: "1",
     },
+    signal: controller.signal,
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${API_ACCESS_TOKEN}`,
@@ -32,13 +33,24 @@ async function fetchData(query, callback) {
   };
 
   // gets response and filters it to only movie titles
-  const response = await axios.request(options);
-  const results = response.data.results.filter((movie) => {
-    return (
-      query && movie && movie.title && movie.title.toLowerCase().includes(query)
-    );
-  });
-  callback(results);
+  try {
+    const response = await axios.request(options);
+    const results = response.data.results.filter((movie) => {
+      return (
+        query &&
+        movie &&
+        movie.title &&
+        movie.title.toLowerCase().includes(query)
+      );
+    });
+    callback(results);
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.log("Request cancelled");
+    } else {
+      throw error;
+    }
+  }
 }
 
 const debouncedFetchData = debounce(fetchData);
@@ -50,6 +62,8 @@ export default function Search() {
   const lastRequestID = useRef(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     if (!searchTerm) {
       setSearchResults([]);
       return;
@@ -59,12 +73,16 @@ export default function Search() {
     const requestID = performance.now();
     lastRequestID.current = requestID;
 
-    debouncedFetchData(searchTerm, (results) => {
+    debouncedFetchData(searchTerm, controller, (results) => {
       // Only sets data if current request is the last
       if (requestID === lastRequestID.current) {
         setSearchResults(results);
       }
     });
+
+    return () => {
+      controller.abort();
+    };
   }, [searchTerm]);
 
   function handleChange(value) {
