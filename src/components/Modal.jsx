@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
-export default function Modal({ open, children, onClose }) {
+export default function Modal({ open, children, onClose, setSearchTerm }) {
   const dialog = useRef();
 
   useEffect(() => {
@@ -9,8 +9,9 @@ export default function Modal({ open, children, onClose }) {
       dialog.current.showModal();
     } else {
       dialog.current.close();
+      setSearchTerm("");
     }
-  }, [open]);
+  }, [open, setSearchTerm]);
 
   return createPortal(
     <dialog

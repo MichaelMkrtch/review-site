@@ -32,8 +32,8 @@ async function fetchData(query, controller, callback) {
     },
   };
 
-  // gets response and filters it to only movie titles
   try {
+    // gets response and filters it to only movie titles
     const response = await axios.request(options);
     const results = response.data.results.filter((movie) => {
       return (
@@ -55,8 +55,7 @@ async function fetchData(query, controller, callback) {
 
 const debouncedFetchData = debounce(fetchData);
 
-export default function Search() {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function Search({ searchTerm, setSearchTerm }) {
   const [searchResults, setSearchResults] = useState([]);
 
   const lastRequestID = useRef(null);
