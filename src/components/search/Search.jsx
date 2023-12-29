@@ -43,7 +43,7 @@ async function fetchData(query, controller, callback) {
         movie.title.toLowerCase().includes(query)
       );
     });
-    callback(results);
+    callback(results.slice(0, 5));
   } catch (error) {
     if (axios.isCancel(error)) {
       console.log("Request cancelled");
@@ -75,8 +75,10 @@ export default function Search({ searchTerm, setSearchTerm }) {
     async function fetchTrending() {
       try {
         const response = await axios.request(options);
-        const results = response.data.results;
+        const results = response.data.results.slice(0, 5);
         setSearchResults(results);
+        localStorage.setItem("trending_movies", JSON.stringify(results));
+        console.log("set");
       } catch (error) {
         console.log("error fetching trending");
       }
@@ -89,7 +91,10 @@ export default function Search({ searchTerm, setSearchTerm }) {
     const controller = new AbortController();
 
     if (!searchTerm) {
-      setSearchResults([]);
+      const trending_movies = JSON.parse(
+        localStorage.getItem("trending_movies"),
+      );
+      setSearchResults(trending_movies);
       return;
     }
 

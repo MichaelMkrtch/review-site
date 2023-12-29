@@ -7,7 +7,7 @@ export default function SearchResultList({ results }) {
   const [movieResults, setMovieResults] = useState([]);
 
   useEffect(() => {
-    setMovieResults(results.slice(0, 5));
+    setMovieResults(results);
   }, [results]);
 
   // This ensures handleKeyPress is only updated when necessary,

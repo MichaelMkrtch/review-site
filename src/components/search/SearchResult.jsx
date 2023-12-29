@@ -35,9 +35,7 @@ export default function SearchResult({
       <div className="pointer-events-none mr-2 flex px-2">
         {posterPath ? image : gradient}
       </div>
-      <button type="button" className="pointer-events-none">
-        {children}
-      </button>
+      <p>{children}</p>
     </div>
   );
 }
