@@ -61,6 +61,31 @@ export default function Search({ searchTerm, setSearchTerm }) {
   const lastRequestID = useRef(null);
 
   useEffect(() => {
+    const options = {
+      method: "GET",
+      url: "https://api.themoviedb.org/3/trending/movie/day",
+      params: { language: "en-US" },
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZTMyZjVhNzg0OTA4YmM4MTQxNGIzNTMzZWJiN2M4YyIsInN1YiI6IjY1Mzk5NjFmMjRmMmNlMDExYzY0NmFmOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HRj1g1HaLeoMOxWf_u2nmaLWLLIJR2PFKsvrYj-AS7M",
+      },
+    };
+
+    async function fetchTrending() {
+      try {
+        const response = await axios.request(options);
+        const results = response.data.results;
+        setSearchResults(results);
+      } catch (error) {
+        console.log("error fetching trending");
+      }
+    }
+
+    fetchTrending();
+  }, []);
+
+  useEffect(() => {
     const controller = new AbortController();
 
     if (!searchTerm) {
