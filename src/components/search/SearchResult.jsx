@@ -1,4 +1,4 @@
-import { IMG_BASE_URL } from "../../secrets.js";
+import { IMG_BASE_URL } from "../../../secrets.js";
 
 export default function SearchResult({
   posterPath,
@@ -32,8 +32,12 @@ export default function SearchResult({
 
   return (
     <div className={classes}>
-      <div className="mr-2 flex px-2 pointer-events-none">{posterPath ? image : gradient}</div>
-      <p>{children}</p>
+      <div className="pointer-events-none mr-2 flex px-2">
+        {posterPath ? image : gradient}
+      </div>
+      <button type="button" className="pointer-events-none">
+        {children}
+      </button>
     </div>
   );
 }

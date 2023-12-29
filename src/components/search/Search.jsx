@@ -3,7 +3,7 @@ import axios from "axios";
 
 import SearchBar from "./SearchBar.jsx";
 import SearchResultList from "./SearchResultList.jsx";
-import { API_ACCESS_TOKEN } from "../../secrets.js";
+import { API_ACCESS_TOKEN } from "../../../secrets.js";
 
 function debounce(func, timeout = 300) {
   let timer;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Reviews from "./components/Reviews.jsx";
 import Modal from "./components/Modal.jsx";
-import Search from "./components/Search.jsx";
+import Search from "./components/search/Search.jsx";
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);

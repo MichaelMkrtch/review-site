@@ -25,7 +25,7 @@ export default function SearchResultList({ results }) {
           setSelectedItemIndex((prevIndex) => prevIndex + 1);
         }
         if (event.key === "Enter" && selectedItemIndex >= 0) {
-          // select movie
+          //
         }
       } else {
         setSelectedItemIndex(0);
