@@ -67,8 +67,7 @@ export default function Search({ searchTerm, setSearchTerm }) {
       params: { language: "en-US" },
       headers: {
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZTMyZjVhNzg0OTA4YmM4MTQxNGIzNTMzZWJiN2M4YyIsInN1YiI6IjY1Mzk5NjFmMjRmMmNlMDExYzY0NmFmOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HRj1g1HaLeoMOxWf_u2nmaLWLLIJR2PFKsvrYj-AS7M",
+        Authorization: `Bearer ${API_ACCESS_TOKEN}`,
       },
     };
 
