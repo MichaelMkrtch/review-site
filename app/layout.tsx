@@ -1,6 +1,9 @@
+import { ReactNode } from "react";
+
 import type { Metadata } from "next";
-import "./globals.css";
 import { Sora, Plus_Jakarta_Sans } from "next/font/google";
+import "./globals.css";
+
 import NavMenu from "@/components/NavMenu";
 
 const sora = Sora({
@@ -20,13 +23,17 @@ export const metadata: Metadata = {
   description: "A place to share your movie reviews",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+type RootLayoutProps = {
+  children: ReactNode;
+};
+
+let SIGNED_IN = true
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${sora.variable} ${plusJakartaSans.variable}`}>
       <body>
-        <NavMenu />
+        <NavMenu signedIn={SIGNED_IN} />
         {children}
       </body>
     </html>
