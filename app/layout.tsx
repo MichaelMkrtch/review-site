@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 import { Sora, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-import NavMenu from "@/components/NavMenu";
+import Header from "@/components/Header";
+import ModalContextProvider from "@/context/ModalContext";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -27,14 +28,15 @@ type RootLayoutProps = {
   children: ReactNode;
 };
 
-let SIGNED_IN = true
-
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${sora.variable} ${plusJakartaSans.variable}`}>
       <body>
-        <NavMenu signedIn={SIGNED_IN} />
-        {children}
+        <ModalContextProvider>
+          <Header />
+          {children}
+          <div id="modal" />
+        </ModalContextProvider>
       </body>
     </html>
   );

@@ -1,38 +1,20 @@
-import { ReactNode } from "react";
+"use client";
 
 import Link from "next/link";
+import { useModalContext } from "@/context/ModalContext";
 
-type NavMenuProps = {
-  signedIn: boolean;
-};
+export default function NavMenu() {
+  const modalContext = useModalContext();
 
-export default function NavMenu({ signedIn }: NavMenuProps) {
-  let link: ReactNode;
+  function handleShowSearch() {
+    modalContext.showSearch();
+  }
+
   const buttonClasses =
     "rounded bg-cyan-350 px-4 py-2 text-base outline-none transition-colors duration-200 ease-in-out hover:bg-cyan-250 active:bg-cyan-400";
 
-  if (signedIn) {
-    link = (
-      <Link href="/search"
-        className={buttonClasses}
-        // onClick={onSearch}
-      >
-        Add Movie
-      </Link>
-    );
-  } else {
-    link = (
-      <Link href="/Sign in" className={buttonClasses}>
-        Sign in
-      </Link>
-    );
-  }
-
   return (
-    <nav className="flex items-center justify-between px-12 py-5">
-      <Link href="/" className="w-1/4">
-        <h1 className="text-2xl">Review Site</h1>
-      </Link>
+    <nav>
       <ul className="flex w-full items-center justify-end">
         <li className="px-4">
           <Link href="/films">Films</Link>
@@ -40,7 +22,16 @@ export default function NavMenu({ signedIn }: NavMenuProps) {
         <li className="px-4">
           <Link href="/library">Library</Link>
         </li>
-        <li className="px-4">{link}</li>
+        <li className="px-4">
+          <Link
+            href="/search"
+            scroll={false}
+            onClick={handleShowSearch}
+            className={buttonClasses}
+          >
+            Add Movie
+          </Link>
+        </li>
       </ul>
     </nav>
   );
