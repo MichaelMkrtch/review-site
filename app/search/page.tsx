@@ -1,9 +1,10 @@
 "use client";
 
 import Modal from "@/components/Modal";
+import SearchBar from "@/components/SearchBar";
 import { useModalContext } from "@/context/ModalContext";
 
-export default function Search() {
+export default function SearchModal() {
   const modalContext = useModalContext();
 
   function handleCloseSearch() {
@@ -11,9 +12,8 @@ export default function Search() {
   }
 
   return (
-    <Modal
-      open={modalContext.type === "search"}
-      onClose={handleCloseSearch}
-    ></Modal>
+    <Modal open={modalContext.type === "search"} onClose={handleCloseSearch}>
+      <SearchBar />
+    </Modal>
   );
 }

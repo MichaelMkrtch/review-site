@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        fadein: "fadein 0.2s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
+        enter: "enter 0.2s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -22,6 +26,16 @@ const config: Config = {
       fontFamily: {
         sora: ["var(--font-sora)"],
         jakarta: ["var(--font-jakarta)"],
+      },
+      keyframes: {
+        fadein: {
+          "0%": { opacity: "0%" },
+          "100%": { opacity: "30%" },
+        },
+        enter: {
+          "0%": { transform: "scale(0.95)", opacity: "0" },
+          "100%": { transform: "scale(1)", opacity: "100" },
+        },
       },
     },
   },
