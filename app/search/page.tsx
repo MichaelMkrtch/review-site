@@ -1,7 +1,7 @@
 "use client";
 
 import Modal from "@/components/Modal";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/search/SearchBar";
 import { useModalContext } from "@/context/ModalContext";
 
 export default function SearchModal() {
