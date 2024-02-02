@@ -43,7 +43,7 @@ export async function fetchData({ signal, query }: FetchDataParams) {
       );
     });
 
-    return results;
+    return results.slice(0, 5);
   } catch (error) {
     console.log(error);
   }

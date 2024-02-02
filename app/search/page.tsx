@@ -17,11 +17,12 @@ export default function SearchModal() {
 
   const modalContext = useModalContext();
 
-  const debouncedFetchData = useDebounce(fetchData);
+  const debouncedQuery = useDebounce(query);
 
   const { data } = useQuery({
-    queryKey: ["films", query],
-    queryFn: ({ signal }) => debouncedFetchData({ signal, query }),
+    queryKey: ["films", debouncedQuery],
+    queryFn: ({ signal }) => fetchData({ signal, query }),
+    enabled: query !== "",
   });
 
   function handleCloseSearch() {

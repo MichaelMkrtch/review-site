@@ -1,31 +1,15 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
-// Accepts any number of arguments of any type and does not return anything
-type AnyFunction = (...args: any[]) => void;
-
-// Infers the type of setTimeout
-type Timer = ReturnType<typeof setTimeout>;
-
-export function useDebounce<Func extends AnyFunction>(
-  func: Func,
-  delay = 3000,
-) {
-  const timer = useRef<Timer>();
+export function useDebounce<T>(value: T, delay = 500) {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
   useEffect(() => {
-    return () => {
-      if (!timer.current) return;
-      clearTimeout(timer.current);
-    };
-  }, []);
-
-  const debouncedFunction = ((...args) => {
-    const newTimer = setTimeout(() => {
-      func(...args);
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
     }, delay);
-    clearTimeout(timer.current);
-    timer.current = newTimer;
-  }) as Func;
 
-  return debouncedFunction;
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
 }

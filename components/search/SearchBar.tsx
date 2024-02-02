@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef, forwardRef, useRef } from "react";
+import { type ComponentPropsWithRef, forwardRef } from "react";
 
 import Image from "next/image";
 
