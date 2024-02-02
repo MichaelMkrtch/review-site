@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useModalContext } from "@/context/ModalContext";
 import { useDebounce } from "@/hooks/useDebounce";
-import { fetchData } from "@/utils/http";
+import { fetchData, fetchTrending } from "@/utils/http";
 
 import Modal from "@/components/Modal";
 import SearchBar from "@/components/search/SearchBar";
@@ -20,11 +20,18 @@ export default function SearchModal() {
 
   const debouncedQuery = useDebounce(query);
 
-  const { data } = useQuery({
+  const { data: searchData, isLoading: isLoadingSearch } = useQuery({
     queryKey: ["films", debouncedQuery],
     queryFn: ({ signal }) => fetchData({ signal, query }),
     staleTime: 5000,
     enabled: debouncedQuery !== "",
+  });
+
+  const { data: trendingData } = useQuery({
+    queryKey: ["trending"],
+    queryFn: fetchTrending,
+    staleTime: 10000,
+    enabled: debouncedQuery === "",
   });
 
   function handleCloseSearch() {
@@ -39,11 +46,15 @@ export default function SearchModal() {
   }
 
   useEffect(() => {
-    if (data) {
-      console.log(data)
-      setSearchResults(data);
+    if (searchData) {
+      console.log(searchData);
+      setSearchResults(searchData);
     }
-  }, [data]);
+
+    if (trendingData && !searchData && !isLoadingSearch) {
+      setSearchResults(trendingData);
+    }
+  }, [searchData, trendingData, isLoadingSearch]);
 
   return (
     <Modal open={modalContext.type === "search"} onClose={handleCloseSearch}>
