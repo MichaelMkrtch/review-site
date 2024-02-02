@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { useModalContext } from "@/context/ModalContext";
@@ -9,10 +9,11 @@ import { fetchData } from "@/utils/http";
 
 import Modal from "@/components/Modal";
 import SearchBar from "@/components/search/SearchBar";
+import SearchResultList from "@/components/search/SearchResultList";
 
 export default function SearchModal() {
   const [query, setQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<{}[]>([]);
   const searchElement = useRef<HTMLInputElement>(null);
 
   const modalContext = useModalContext();
@@ -22,7 +23,8 @@ export default function SearchModal() {
   const { data } = useQuery({
     queryKey: ["films", debouncedQuery],
     queryFn: ({ signal }) => fetchData({ signal, query }),
-    enabled: query !== "",
+    staleTime: 5000,
+    enabled: debouncedQuery !== "",
   });
 
   function handleCloseSearch() {
@@ -35,13 +37,17 @@ export default function SearchModal() {
     }
   }
 
-  if (data) {
-    console.log(data);
-  }
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      setSearchResults(data);
+    }
+  }, [data]);
 
   return (
     <Modal open={modalContext.type === "search"} onClose={handleCloseSearch}>
       <SearchBar ref={searchElement} query={query} onChange={handleChange} />
+      <SearchResultList results={searchResults} />
     </Modal>
   );
 }
