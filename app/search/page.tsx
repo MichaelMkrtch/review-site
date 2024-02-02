@@ -29,6 +29,7 @@ export default function SearchModal() {
 
   function handleCloseSearch() {
     modalContext.hideSearch();
+    setQuery("");
   }
 
   function handleChange() {
@@ -39,7 +40,7 @@ export default function SearchModal() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
+      console.log(data)
       setSearchResults(data);
     }
   }, [data]);

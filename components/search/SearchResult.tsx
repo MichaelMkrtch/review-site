@@ -35,7 +35,7 @@ export default function SearchResult({
     image = (
       <Image
         src={`${IMG_BASE_URL}w92${posterPath}`}
-        className="w-8 rounded"
+        className="h-12 w-8 rounded"
         width={92}
         height={138}
         alt="A movie poster"
