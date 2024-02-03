@@ -23,7 +23,7 @@ export default function SearchResult({
   const modalContext = useModalContext();
 
   let classes =
-    "flex justify-start rounded-md py-2 mt-1 items-center first:!bg-cyan-350/80 hover:bg-neutral-300/40";
+    "flex justify-start rounded-lg py-2 mt-1 items-center first:!bg-cyan-350/80 hover:bg-neutral-300/40";
 
   if (selectedItemIndex > 0) {
     classes = classes.replace("first:!bg-cyan-350/80", "first:bg-transparent");
@@ -64,7 +64,7 @@ export default function SearchResult({
         className="flex w-full items-center"
         onClick={handleShowDetails}
       >
-        <div className="pointer-events-none mr-2 flex px-1.5">
+        <div className="pointer-events-none mr-1.5 flex px-2">
           {posterPath ? image : gradient}
         </div>
         <p>{children}</p>

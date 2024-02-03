@@ -31,7 +31,7 @@ export default function Modal({ open, onClose, children }: ModalProps) {
       <dialog
         ref={dialog}
         onClose={onClose}
-        className="open:backdrop:animate-fadein open:animate-enter w-3/5 rounded-lg px-3 py-3.5 outline-none backdrop:bg-neutral-900 backdrop:opacity-30"
+        className="open:backdrop:animate-fadein open:animate-enter w-3/5 rounded-xl px-3 py-3.5 outline-none backdrop:bg-neutral-900 backdrop:opacity-30"
       >
         {children}
       </dialog>,

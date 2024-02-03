@@ -6,7 +6,7 @@ import Link from "next/link";
 
 import NavMenu from "./NavMenu";
 import SearchModal from "./search/SearchModal";
-import DetailsModal from "./DetailsModal";
+import DetailsModal from "./details/DetailsModal";
 
 const queryClient = new QueryClient();
 

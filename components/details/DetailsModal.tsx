@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { IMG_BASE_URL } from "@/secrets";
 import { useModalContext } from "@/context/ModalContext";
 
-import Modal from "./Modal";
+import Modal from "../Modal";
 
 
 export default function DetailsModal() {
