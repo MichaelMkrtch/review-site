@@ -47,12 +47,18 @@ export default function SearchResult({
     );
   }
 
+  function handleClick() {
+    console.log("click");
+  }
+
   return (
     <div className={classes}>
-      <div className="pointer-events-none mr-2 flex px-2">
-        {posterPath ? image : gradient}
-      </div>
-      <p>{children}</p>
+      <button className="flex w-full items-center" onClick={handleClick}>
+        <div className="pointer-events-none mr-2 flex px-1.5">
+          {posterPath ? image : gradient}
+        </div>
+        <p>{children}</p>
+      </button>
     </div>
   );
 }

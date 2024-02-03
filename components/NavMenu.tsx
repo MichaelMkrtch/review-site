@@ -23,14 +23,9 @@ export default function NavMenu() {
           <Link href="/library">Library</Link>
         </li>
         <li className="px-4">
-          <Link
-            href="/search"
-            scroll={false}
-            onClick={handleShowSearch}
-            className={buttonClasses}
-          >
+          <button onClick={handleShowSearch} className={buttonClasses}>
             Add Movie
-          </Link>
+          </button>
         </li>
       </ul>
     </nav>

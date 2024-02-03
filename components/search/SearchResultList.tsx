@@ -51,12 +51,12 @@ export default function SearchResultList({ results }: SearchResultListProps) {
   return (
     <div
       tabIndex={-1}
-      className="mt-3 cursor-default select-none border-t pt-1 outline-none"
+      className="mt-2 cursor-default select-none border-t pt-1 outline-none"
     >
       {movieResults.map((movie: { [key: string]: any }, index) => {
         return (
           <SearchResult
-            key={index}
+            key={movie.id}
             posterPath={movie.poster_path}
             selectedItemIndex={selectedItemIndex}
             renderIndex={index}

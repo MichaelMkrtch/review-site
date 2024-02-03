@@ -13,7 +13,7 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
   function SearchBar({ query, onChange }, ref) {
     return (
       <div className="flex justify-center align-middle">
-        <div className="mr-2 flex px-2">
+        <div className="mx-4 flex pr-2">
           <Image
             src={searchIcon}
             alt="Magnifying glass icon"
