@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import NavMenu from "./NavMenu";
 import SearchModal from "./search/SearchModal";
+import DetailsModal from "./DetailsModal";
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ export default function Header() {
   return (
     <QueryClientProvider client={queryClient}>
       <SearchModal />
+      <DetailsModal />
       <header className="flex items-center justify-between px-12 py-5">
         <div>
           <Link href="/" className="w-1/4">

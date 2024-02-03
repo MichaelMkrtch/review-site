@@ -57,7 +57,12 @@ export default function SearchModal() {
   }, [searchData, trendingData, isLoadingSearch]);
 
   return (
-    <Modal open={modalContext.type === "search"} onClose={handleCloseSearch}>
+    <Modal
+      open={modalContext.type === "showSearch"}
+      onClose={
+        modalContext.type === "showSearch" ? handleCloseSearch : undefined
+      }
+    >
       <SearchBar ref={searchElement} query={query} onChange={handleChange} />
       <SearchResultList results={searchResults} />
     </Modal>

@@ -1,9 +1,11 @@
 "use client";
 
-import { type ReactNode, createContext, useState, useContext } from "react";
+import { type ReactNode, createContext, useContext, useState } from "react";
 
 type ModalContextValue = {
   type: string;
+  movieID: number;
+  selectMovie: (id: number) => void;
   showSearch: () => void;
   hideSearch: () => void;
   showDetails: () => void;
@@ -28,31 +30,43 @@ type ModalContextProviderProps = {
   children: ReactNode;
 };
 
-type ModalType = "search" | "details" | "";
+type ModalType =
+  | "showSearch"
+  | "hideSearch"
+  | "showDetails"
+  | "hideDetails"
+  | "";
 
 export default function ModalContextProvider({
   children,
 }: ModalContextProviderProps) {
   const [modalType, setModalType] = useState<ModalType>("");
+  const [movieID, setMovieID] = useState<number>(0);
 
   function showSearch() {
-    setModalType("search");
+    setModalType("showSearch");
   }
 
   function hideSearch() {
-    setModalType("");
+    setModalType("hideSearch");
   }
 
   function showDetails() {
-    setModalType("details");
+    setModalType("showDetails");
   }
 
   function hideDetails() {
-    setModalType("");
+    setModalType("hideDetails");
+  }
+
+  function selectMovie(id: number) {
+    setMovieID(id);
   }
 
   const modalContext: ModalContextValue = {
     type: modalType,
+    movieID,
+    selectMovie,
     showSearch,
     hideSearch,
     showDetails,

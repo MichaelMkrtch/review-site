@@ -3,8 +3,10 @@ import { type ReactNode } from "react";
 import Image from "next/image";
 
 import { IMG_BASE_URL } from "@/secrets.ts";
+import { useModalContext } from "@/context/ModalContext";
 
 type SearchResultProps = {
+  movieID: number;
   posterPath: string;
   selectedItemIndex: number;
   renderIndex: number;
@@ -12,11 +14,14 @@ type SearchResultProps = {
 };
 
 export default function SearchResult({
+  movieID,
   posterPath,
   selectedItemIndex,
   renderIndex,
   children,
 }: SearchResultProps) {
+  const modalContext = useModalContext();
+
   let classes =
     "flex justify-start rounded-md py-2 mt-1 items-center first:!bg-cyan-350/80 hover:bg-neutral-300/40";
 
@@ -47,13 +52,18 @@ export default function SearchResult({
     );
   }
 
-  function handleClick() {
-    console.log("click");
+  function handleShowDetails() {
+    modalContext.showDetails();
+    modalContext.selectMovie(movieID);
   }
 
   return (
     <div className={classes}>
-      <button className="flex w-full items-center" onClick={handleClick}>
+      <button
+        type="button"
+        className="flex w-full items-center"
+        onClick={handleShowDetails}
+      >
         <div className="pointer-events-none mr-2 flex px-1.5">
           {posterPath ? image : gradient}
         </div>
