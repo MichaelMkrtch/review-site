@@ -6,6 +6,8 @@ type ModalContextValue = {
   type: string;
   showSearch: () => void;
   hideSearch: () => void;
+  showDetails: () => void;
+  hideDetails: () => void;
 };
 
 const ModalContext = createContext<ModalContextValue | null>(null);
@@ -26,7 +28,7 @@ type ModalContextProviderProps = {
   children: ReactNode;
 };
 
-type ModalType = "search" | "";
+type ModalType = "search" | "details" | "";
 
 export default function ModalContextProvider({
   children,
@@ -41,10 +43,20 @@ export default function ModalContextProvider({
     setModalType("");
   }
 
+  function showDetails() {
+    setModalType("details");
+  }
+
+  function hideDetails() {
+    setModalType("");
+  }
+
   const modalContext: ModalContextValue = {
     type: modalType,
     showSearch,
     hideSearch,
+    showDetails,
+    hideDetails,
   };
 
   return (
