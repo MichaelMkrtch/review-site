@@ -31,7 +31,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${sora.variable} ${plusJakartaSans.variable}`}>
-      <body>
+      <body className="overflow-hidden bg-gray-950 text-zinc-200">
         <ModalContextProvider>
           <Header />
           {children}

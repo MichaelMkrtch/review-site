@@ -35,8 +35,8 @@ export default function SearchModal() {
   });
 
   function handleCloseSearch() {
-    modalContext.hideSearch();
     setQuery("");
+    modalContext.hideSearch();
   }
 
   function handleChange() {
@@ -47,7 +47,6 @@ export default function SearchModal() {
 
   useEffect(() => {
     if (searchData) {
-      console.log(searchData);
       setSearchResults(searchData);
     }
 
@@ -58,6 +57,7 @@ export default function SearchModal() {
 
   return (
     <Modal
+      hasPadding={true}
       open={modalContext.type === "showSearch"}
       onClose={
         modalContext.type === "showSearch" ? handleCloseSearch : undefined

@@ -19,8 +19,13 @@ const config: Config = {
       },
       colors: {
         cyan: {
-          350: "#0aefff",
           250: "#70f5ff",
+          350: "#0aefff",
+        },
+        gray: {
+          750: "#2D3139",
+          850: "#202528",
+          950: "#181a1e",
         },
       },
       fontFamily: {

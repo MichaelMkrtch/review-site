@@ -6,6 +6,7 @@ import { IMG_BASE_URL } from "@/secrets.ts";
 import { useModalContext } from "@/context/ModalContext";
 
 type SearchResultProps = {
+  movieName: string;
   movieID: number;
   posterPath: string;
   selectedItemIndex: number;
@@ -14,6 +15,7 @@ type SearchResultProps = {
 };
 
 export default function SearchResult({
+  movieName,
   movieID,
   posterPath,
   selectedItemIndex,
@@ -23,14 +25,14 @@ export default function SearchResult({
   const modalContext = useModalContext();
 
   let classes =
-    "flex justify-start rounded-lg py-2 mt-1 items-center first:!bg-cyan-350/80 hover:bg-neutral-300/40";
+    "flex justify-start rounded-lg py-2 mt-1 items-center first:!bg-cyan-350/80 hover:bg-[#313131]/90";
 
   if (selectedItemIndex > 0) {
     classes = classes.replace("first:!bg-cyan-350/80", "first:bg-transparent");
   }
 
   if (selectedItemIndex === renderIndex) {
-    classes += " !bg-cyan-350/80";
+    classes += " !bg-cyan-350/80 text-gray-850";
   }
 
   let image;
@@ -40,7 +42,7 @@ export default function SearchResult({
     image = (
       <Image
         src={`${IMG_BASE_URL}w92${posterPath}`}
-        className="h-12 w-8 rounded"
+        className="h-12 w-8 rounded object-contain"
         width={92}
         height={138}
         alt="A movie poster"
@@ -54,7 +56,7 @@ export default function SearchResult({
 
   function handleShowDetails() {
     modalContext.showDetails();
-    modalContext.selectMovie(movieID);
+    modalContext.selectMovie(movieName, movieID, posterPath);
   }
 
   return (

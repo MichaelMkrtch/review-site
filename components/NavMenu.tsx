@@ -11,7 +11,7 @@ export default function NavMenu() {
   }
 
   const buttonClasses =
-    "rounded bg-cyan-350 px-4 py-2 text-base outline-none transition-colors duration-200 ease-in-out hover:bg-cyan-250 active:bg-cyan-400";
+    "rounded bg-cyan-350 px-4 py-2 text-gray-850 outline-none transition-colors duration-200 ease-in-out hover:bg-cyan-250 active:bg-cyan-400";
 
   return (
     <nav>

@@ -4,8 +4,10 @@ import { type ReactNode, createContext, useContext, useState } from "react";
 
 type ModalContextValue = {
   type: string;
+  movieName: string;
   movieID: number;
-  selectMovie: (id: number) => void;
+  posterPath: string;
+  selectMovie: (movieName: string, id: number, posterPath: string) => void;
   showSearch: () => void;
   hideSearch: () => void;
   showDetails: () => void;
@@ -41,7 +43,9 @@ export default function ModalContextProvider({
   children,
 }: ModalContextProviderProps) {
   const [modalType, setModalType] = useState<ModalType>("");
+  const [movieName, setMovieName] = useState<string>("");
   const [movieID, setMovieID] = useState<number>(0);
+  const [posterPath, setPosterPath] = useState<string>("");
 
   function showSearch() {
     setModalType("showSearch");
@@ -59,13 +63,17 @@ export default function ModalContextProvider({
     setModalType("hideDetails");
   }
 
-  function selectMovie(id: number) {
+  function selectMovie(movieName: string, id: number, posterPath: string) {
+    setMovieName(movieName);
     setMovieID(id);
+    setPosterPath(posterPath);
   }
 
   const modalContext: ModalContextValue = {
     type: modalType,
+    movieName,
     movieID,
+    posterPath,
     selectMovie,
     showSearch,
     hideSearch,

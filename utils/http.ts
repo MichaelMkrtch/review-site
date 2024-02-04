@@ -2,7 +2,7 @@ import { API_TOKEN } from "@/secrets";
 
 type FetchDataParams = {
   signal: AbortSignal;
-  query: any;
+  query: string;
 };
 
 // Fetches Movie Data
