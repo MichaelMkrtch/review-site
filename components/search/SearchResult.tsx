@@ -63,7 +63,7 @@ export default function SearchResult({
     <div className={classes}>
       <button
         type="button"
-        className="flex w-full items-center"
+        className="flex w-full cursor-default items-center"
         onClick={handleShowDetails}
       >
         <div className="pointer-events-none mr-1.5 flex px-2">

@@ -29,7 +29,7 @@ export default function SearchResultList({ results }: SearchResultListProps) {
           setSelectedItemIndex((prevIndex) => prevIndex + 1);
         }
         if (event.key === "Enter" && selectedItemIndex >= 0) {
-          //
+          // pass movie data with context
         }
       } else {
         setSelectedItemIndex(0);

@@ -1,8 +1,6 @@
 import { type ComponentPropsWithRef, forwardRef } from "react";
 
-import Image from "next/image";
-
-import searchIcon from "@/public/search-icon.svg";
+import { MagnifyingGlassIcon } from "../Icons";
 
 type SearchBarProps = ComponentPropsWithRef<"input"> & {
   query: string;
@@ -14,11 +12,7 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
     return (
       <div className="flex justify-center align-middle">
         <div className="mx-4 flex pr-2">
-          <Image
-            src={searchIcon}
-            alt="Magnifying glass icon"
-            className="pointer-events-none select-none"
-          />
+          <MagnifyingGlassIcon className="my-auto" />
         </div>
         <input
           ref={ref}
@@ -29,7 +23,7 @@ const SearchBar = forwardRef<HTMLInputElement, SearchBarProps>(
           value={query}
           required={true}
           onChange={(event) => onChange(event)}
-          className="w-full bg-[#232323] py-2 font-medium outline-none placeholder:text-[#434343]"
+          className="w-full bg-[#232323] py-2 font-medium outline-none placeholder:font-medium placeholder:tracking-wide placeholder:text-[#434343]"
         />
       </div>
     );
