@@ -6,18 +6,18 @@ export default function DetailsSection() {
   const { movieName } = useModalContext();
 
   return (
-    <div className="relative -top-24 mx-12 flex">
+    <div className="relative -top-14 mx-12 -mb-2 flex">
       <aside className="mr-12">
         <Poster />
       </aside>
       <div className="flex grow flex-col justify-between text-center">
         <div className="font-sora">
-          <p className="pointer-events-none text-2xl text-zinc-200 drop-shadow">
+          <p className="pointer-events-none text-2xl text-[#D3D4D9] drop-shadow">
             {movieName}
           </p>
           <p>
-            <span className="ml-2 text-lg font-light text-slate-400">2023</span>{" "}
-            <span className="ml-0.5 text-nowrap text-lg font-light text-slate-400">
+            <span className="ml-2 text-lg font-light text-[#D3D4D9]/70">2023</span>{" "}
+            <span className="ml-0.5 text-nowrap text-lg font-light text-[#D3D4D9]/70">
               Justine Triet
             </span>
           </p>

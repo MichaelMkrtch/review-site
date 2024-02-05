@@ -14,7 +14,7 @@ export default function Poster() {
       alt="A movie poster"
       width={780}
       height={1170}
-      className="h-72 w-48 rounded object-cover"
+      className="h-72 w-48 rounded object-cover drop-shadow"
     />
   );
 }
