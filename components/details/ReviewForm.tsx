@@ -5,6 +5,8 @@ export default function ReviewForm() {
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="m-auto">
+        {/* prevents Mui Rating component from auto-selecting on modal open */}
+        <input type="radio" className="opacity-0" />
         <Rating
           name="film-rating"
           icon={<StarIcon color="#FFD43B" />}
