@@ -14,13 +14,13 @@ export default function DetailsSection() {
         <div className="font-sora">
           <p className="pointer-events-none drop-shadow">
             <span className="text-2xl text-zinc-200">{movieName}</span>{" "}
-            <span className="ml-2 text-lg font-light text-slate-400">2021</span>{" "}
+            <span className="ml-2 text-lg font-light text-slate-400">2023</span>{" "}
             <span className="ml-0.5 text-nowrap text-lg font-light text-slate-400">
-              Denis Villeneuve
+              Justine Triet
             </span>
           </p>
         </div>
-        <div className="">
+        <div className="h-full">
           <ReviewForm />
         </div>
       </div>

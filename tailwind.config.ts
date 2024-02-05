@@ -28,6 +28,10 @@ const config: Config = {
           950: "#181a1e",
         },
       },
+      content: {
+        "half-star": "url('../public/half-star.svg')",
+        star: "url('../public/star.svg')",
+      },
       fontFamily: {
         sora: ["var(--font-sora)"],
         jakarta: ["var(--font-jakarta)"],
