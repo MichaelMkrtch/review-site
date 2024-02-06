@@ -2,15 +2,12 @@ import { API_TOKEN } from "@/secrets.ts";
 
 type FetchBackdropsParams = {
   signal: AbortSignal;
-  movieID: number;
+  id: number;
 };
 
 // Fetches Movie Details
-export async function fetchBackdrops({
-  signal,
-  movieID,
-}: FetchBackdropsParams) {
-  let url = `https://api.themoviedb.org/3/movie/${movieID}/images`;
+export async function fetchBackdrops({ signal, id }: FetchBackdropsParams) {
+  const url = `https://api.themoviedb.org/3/movie/${id}/images`;
 
   const options = {
     method: "GET",
@@ -25,7 +22,7 @@ export async function fetchBackdrops({
     const response = await fetch(url, options);
 
     if (!response.ok) {
-      let error = new Error("An error occured while fetching movie images!");
+      let error = new Error("An error occured while fetching images!");
       throw error;
     }
 

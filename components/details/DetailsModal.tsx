@@ -10,18 +10,21 @@ import { useModalContext } from "@/context/ModalContext";
 import { fetchBackdrops } from "@/utils/fetchBackdrops";
 import Modal from "../Modal";
 import DetailsSection from "./DetailsSection";
+import { useMediaContext } from "@/context/MediaContext";
 
 export default function DetailsModal() {
   const [backdrop, setBackdrop] = useState();
 
   const modalContext = useModalContext();
-  const movieID = modalContext.movieID;
+  const mediaContext = useMediaContext();
+
+  const { id } = mediaContext.content;
 
   const { data } = useQuery({
-    queryKey: ["backdrop", movieID],
-    queryFn: ({ signal }) => fetchBackdrops({ signal, movieID }),
-    staleTime: 10000,
-    enabled: movieID !== 0,
+    queryKey: ["backdrop", id],
+    queryFn: ({ signal }) => fetchBackdrops({ signal, id }),
+    staleTime: 5 * 60 * 1000,
+    enabled: id > 0,
   });
 
   function handleCloseDetails() {

@@ -23,14 +23,14 @@ export default function SearchModal() {
   const { data: searchData, isLoading: isLoadingSearch } = useQuery({
     queryKey: ["films", debouncedQuery],
     queryFn: ({ signal }) => fetchData({ signal, query }),
-    staleTime: 5000,
+    staleTime: 1 * 60 * 1000,
     enabled: debouncedQuery !== "",
   });
 
   const { data: trendingData } = useQuery({
     queryKey: ["trending"],
     queryFn: fetchTrending,
-    staleTime: 10000,
+    staleTime: 1 * 60 * 1000,
     enabled: debouncedQuery === "",
   });
 

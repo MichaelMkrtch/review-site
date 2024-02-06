@@ -1,9 +1,10 @@
-import { useModalContext } from "@/context/ModalContext";
+import { useMediaContext } from "@/context/MediaContext";
 import Poster from "./Poster";
 import ReviewForm from "./ReviewForm";
 
 export default function DetailsSection() {
-  const { movieName } = useModalContext();
+  const mediaContext = useMediaContext();
+  const { title } = mediaContext.content;
 
   return (
     <div className="relative -top-14 mx-12 -mb-2 flex">
@@ -13,10 +14,12 @@ export default function DetailsSection() {
       <div className="flex grow flex-col justify-between text-center">
         <div className="font-sora">
           <p className="pointer-events-none text-2xl text-[#D3D4D9] drop-shadow">
-            {movieName}
+            {title}
           </p>
           <p>
-            <span className="ml-2 text-lg font-light text-[#D3D4D9]/70">2023</span>{" "}
+            <span className="ml-2 text-lg font-light text-[#D3D4D9]/70">
+              2023
+            </span>{" "}
             <span className="ml-0.5 text-nowrap text-lg font-light text-[#D3D4D9]/70">
               Justine Triet
             </span>

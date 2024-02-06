@@ -4,10 +4,11 @@ import Image from "next/image";
 
 import { IMG_BASE_URL } from "@/secrets.ts";
 import { useModalContext } from "@/context/ModalContext";
+import { useMediaContext } from "@/context/MediaContext";
 
 type SearchResultProps = {
   movieName: string;
-  movieID: number;
+  id: number;
   posterPath: string;
   selectedItemIndex: number;
   renderIndex: number;
@@ -16,13 +17,14 @@ type SearchResultProps = {
 
 export default function SearchResult({
   movieName,
-  movieID,
+  id,
   posterPath,
   selectedItemIndex,
   renderIndex,
   children,
 }: SearchResultProps) {
   const modalContext = useModalContext();
+  const mediaContext = useMediaContext();
 
   let classes =
     "flex justify-start rounded-lg py-2 mt-1 items-center first:!bg-cyan-350/80 hover:bg-[#313131]/90";
@@ -35,11 +37,11 @@ export default function SearchResult({
     classes += " !bg-cyan-350/80 text-gray-850";
   }
 
-  let image;
+  let poster;
   let gradient;
 
   if (posterPath) {
-    image = (
+    poster = (
       <Image
         src={`${IMG_BASE_URL}w92${posterPath}`}
         className="h-12 w-8 rounded object-contain"
@@ -55,8 +57,13 @@ export default function SearchResult({
   }
 
   function handleShowDetails() {
+    mediaContext.writeData({
+      type: "film",
+      title: movieName,
+      id: id,
+      poster: posterPath,
+    });
     modalContext.showDetails();
-    modalContext.selectMovie(movieName, movieID, posterPath);
   }
 
   return (
@@ -67,7 +74,7 @@ export default function SearchResult({
         onClick={handleShowDetails}
       >
         <div className="pointer-events-none mr-1.5 flex px-2">
-          {posterPath ? image : gradient}
+          {posterPath ? poster : gradient}
         </div>
         <p>{children}</p>
       </button>

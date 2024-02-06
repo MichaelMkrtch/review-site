@@ -58,7 +58,7 @@ export default function SearchResultList({ results }: SearchResultListProps) {
           <SearchResult
             key={movie.id}
             movieName={movie.title}
-            movieID={movie.id}
+            id={movie.id}
             posterPath={movie.poster_path}
             selectedItemIndex={selectedItemIndex}
             renderIndex={index}

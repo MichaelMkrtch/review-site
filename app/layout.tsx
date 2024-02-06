@@ -8,6 +8,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 import Header from "@/components/Header";
 import ModalContextProvider from "@/context/ModalContext";
+import MediaContextProvider from "@/context/MediaContext";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -36,9 +37,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="overflow-hidden bg-gray-950 text-[#D3D4D9]">
         <AppRouterCacheProvider>
           <ModalContextProvider>
-            <Header />
-            {children}
-            <div id="modal" />
+            <MediaContextProvider>
+              <Header />
+              {children}
+              <div id="modal" />
+            </MediaContextProvider>
           </ModalContextProvider>
         </AppRouterCacheProvider>
       </body>

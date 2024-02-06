@@ -2,11 +2,12 @@
 
 import Image from "next/image";
 
-import { useModalContext } from "@/context/ModalContext";
+import { useMediaContext } from "@/context/MediaContext";
 import { IMG_BASE_URL } from "@/secrets";
 
 export default function Poster() {
-  const { posterPath } = useModalContext();
+  const mediaContext = useMediaContext();
+  const { poster: posterPath } = mediaContext.content;
 
   return (
     <Image
