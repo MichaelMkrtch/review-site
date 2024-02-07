@@ -5,7 +5,6 @@ type FetchBackdropsParams = {
   id: number;
 };
 
-// Fetches Movie Details
 export async function fetchBackdrops({ signal, id }: FetchBackdropsParams) {
   const url = `https://api.themoviedb.org/3/movie/${id}/images`;
 

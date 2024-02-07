@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import { searchMovies } from "@/utils/searchMovies";
+import { fetchTrendingMovies } from "@/utils/fetchTrendingMovies";
 import { useModalContext } from "@/context/ModalContext";
 import { useDebounce } from "@/hooks/useDebounce";
-import { fetchData, fetchTrending } from "@/utils/http";
 
 import Modal from "@/components/Modal";
 import SearchBar from "@/components/search/SearchBar";
@@ -13,26 +14,37 @@ import SearchResultList from "@/components/search/SearchResultList";
 
 export default function SearchModal() {
   const [query, setQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<{}[]>([]);
-  const searchElement = useRef<HTMLInputElement>(null);
+  const [searchResults, setSearchResults] = useState<{ id: number }[]>([]);
 
-  const modalContext = useModalContext();
+  const searchElement = useRef<HTMLInputElement>(null);
 
   const debouncedQuery = useDebounce(query);
 
+  const modalContext = useModalContext();
+
+  const { data: trendingData } = useQuery({
+    queryKey: ["trending"],
+    queryFn: fetchTrendingMovies,
+    staleTime: 1 * 60 * 1000,
+    enabled: debouncedQuery === "",
+  });
+
   const { data: searchData, isLoading: isLoadingSearch } = useQuery({
     queryKey: ["films", debouncedQuery],
-    queryFn: ({ signal }) => fetchData({ signal, query }),
+    queryFn: ({ signal }) => searchMovies({ signal, query }),
     staleTime: 1 * 60 * 1000,
     enabled: debouncedQuery !== "",
   });
 
-  const { data: trendingData } = useQuery({
-    queryKey: ["trending"],
-    queryFn: fetchTrending,
-    staleTime: 1 * 60 * 1000,
-    enabled: debouncedQuery === "",
-  });
+  useEffect(() => {
+    if (searchData) {
+      setSearchResults(searchData);
+    }
+
+    if (trendingData && !searchData && !isLoadingSearch) {
+      setSearchResults(trendingData);
+    }
+  }, [searchData, trendingData, isLoadingSearch]);
 
   function handleCloseSearch() {
     setQuery("");
@@ -44,16 +56,6 @@ export default function SearchModal() {
       setQuery(searchElement.current.value);
     }
   }
-
-  useEffect(() => {
-    if (searchData) {
-      setSearchResults(searchData);
-    }
-
-    if (trendingData && !searchData && !isLoadingSearch) {
-      setSearchResults(trendingData);
-    }
-  }, [searchData, trendingData, isLoadingSearch]);
 
   return (
     <Modal

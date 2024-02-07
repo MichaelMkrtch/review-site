@@ -1,7 +1,6 @@
 "use client";
 
 import { createPortal } from "react-dom";
-
 import { type ComponentPropsWithRef, useRef, useEffect, useState } from "react";
 
 type ModalProps = ComponentPropsWithRef<"dialog"> & {
@@ -32,13 +31,13 @@ export default function Modal({
     setDocumentMounted(true);
   }, []);
 
-  let classes: string;
+  let classes =
+    "w-3/5 max-w-[50%] rounded-xl outline-none drop-shadow-lg text-[#D3D4D9] backdrop:bg-[#000] backdrop:opacity-70 open:animate-enter open:backdrop:animate-fadein";
+
   if (hasPadding) {
-    classes =
-      "w-3/5 max-w-[50%] rounded-xl bg-[#232323] text-zinc-200 px-3 py-3.5 outline-none drop-shadow-lg backdrop:bg-[#000] backdrop:opacity-70 open:animate-enter open:backdrop:animate-fadein";
+    classes += " h-[421px] px-3 py-3.5 bg-[#232323]";
   } else {
-    classes =
-      "w-3/5 max-w-[50%] overflow-hidden rounded-xl bg-[#181818] text-zinc-200 outline-none drop-shadow-lg backdrop:bg-[#000] backdrop:opacity-70 open:animate-enter open:backdrop:animate-fadein";
+    classes += " overflow-hidden bg-[#181818]";
   }
 
   return (

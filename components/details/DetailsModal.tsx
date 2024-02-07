@@ -45,7 +45,7 @@ export default function DetailsModal() {
     >
       {data && (
         <div className="relative">
-          <div className="absolute h-full w-full bg-gradient-to-t from-[#181818] via-transparent to-transparent" />
+          <div className="absolute h-full w-full bg-gradient-to-t from-[#181818] via-transparent to-transparent px-1 pb-1" />
           {backdrop && (
             <Image
               src={`${IMG_BASE_URL}original${backdrop}`}

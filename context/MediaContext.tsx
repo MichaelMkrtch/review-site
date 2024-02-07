@@ -4,8 +4,9 @@ import { type ReactNode, createContext, useContext, useState } from "react";
 
 type ContentObj = {
   type: string;
-  title: string;
   id: number;
+  title: string;
+  directors: string;
   poster: string;
 };
 
@@ -38,14 +39,15 @@ export default function MediaContextProvider({
   const [content, setContent] = useState({ id: 0 } as ContentObj);
 
   function writeData(contentData: ContentObj) {
-    const { type, title, id, poster } = contentData;
+    const { type, id, title, directors, poster } = contentData;
 
     setContent((prevContent) => {
       return {
         ...prevContent,
         type,
-        title,
         id,
+        title,
+        directors,
         poster,
       };
     });

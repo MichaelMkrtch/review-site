@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { type ReactNode, useCallback, useEffect } from "react";
 
 import Image from "next/image";
 
@@ -9,6 +9,7 @@ import { useMediaContext } from "@/context/MediaContext";
 type SearchResultProps = {
   movieName: string;
   id: number;
+  directors: { name: string }[];
   posterPath: string;
   selectedItemIndex: number;
   renderIndex: number;
@@ -18,6 +19,7 @@ type SearchResultProps = {
 export default function SearchResult({
   movieName,
   id,
+  directors,
   posterPath,
   selectedItemIndex,
   renderIndex,
@@ -25,6 +27,16 @@ export default function SearchResult({
 }: SearchResultProps) {
   const modalContext = useModalContext();
   const mediaContext = useMediaContext();
+
+  let director = "";
+
+  if (directors.length > 1) {
+    director = directors
+      .map((director: { name: string }) => director.name)
+      .join(", ");
+  } else {
+    director = directors[0].name;
+  }
 
   let classes =
     "flex justify-start rounded-lg py-2 mt-1 items-center first:!bg-cyan-350/80 hover:bg-[#313131]/90";
@@ -34,7 +46,8 @@ export default function SearchResult({
   }
 
   if (selectedItemIndex === renderIndex) {
-    classes += " !bg-cyan-350/80 text-gray-850";
+    classes +=
+      " !bg-cyan-350/80 text-[#232323] [&_>button>div>span]:text-[#232323]/60";
   }
 
   let poster;
@@ -56,15 +69,37 @@ export default function SearchResult({
     );
   }
 
-  function handleShowDetails() {
-    mediaContext.writeData({
-      type: "film",
-      title: movieName,
-      id: id,
-      poster: posterPath,
-    });
-    modalContext.showDetails();
-  }
+  const handleShowDetails = useCallback(
+    function handleShowDetails() {
+      mediaContext.writeData({
+        type: "film",
+        title: movieName,
+        directors: director,
+        id: id,
+        poster: posterPath,
+      });
+      modalContext.showDetails();
+    },
+    [mediaContext, modalContext, movieName, director, id, posterPath],
+  );
+
+  // Enables keyboard selection of search results
+  const handleKeyPress = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Enter" && selectedItemIndex === renderIndex) {
+        handleShowDetails();
+      }
+    },
+    [selectedItemIndex, handleShowDetails, renderIndex],
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   return (
     <div className={classes}>
@@ -76,7 +111,12 @@ export default function SearchResult({
         <div className="pointer-events-none mr-1.5 flex px-2">
           {posterPath ? poster : gradient}
         </div>
-        <p>{children}</p>
+        <div className="flex items-baseline">
+          <p>{children}</p>
+          <span className="pl-2.5 align-bottom text-sm text-[#D3D4D9]/60">
+            {director}
+          </span>
+        </div>
       </button>
     </div>
   );

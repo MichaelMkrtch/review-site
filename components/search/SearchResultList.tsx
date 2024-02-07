@@ -1,41 +1,58 @@
 import { useCallback, useEffect, useState } from "react";
+import { useQueries } from "@tanstack/react-query";
 
+import { fetchMovieDetails } from "@/utils/fetchMovieDetails";
 import SearchResult from "./SearchResult";
 
 type SearchResultListProps = {
-  results: {}[];
+  results: { id: number }[];
 };
 
 export default function SearchResultList({ results }: SearchResultListProps) {
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-  const [movieResults, setMovieResults] = useState<{}[]>([]);
+  const [movieIDs, setMovieIDs] = useState<number[]>([]);
 
   useEffect(() => {
-    setMovieResults(results);
+    let movies: number[] = [];
+
+    for (const result of results) {
+      movies.push(result.id);
+    }
+
+    setMovieIDs(movies);
   }, [results]);
+
+  const queryResults = useQueries({
+    queries: movieIDs.map((id) => ({
+      queryKey: ["film details", id],
+      queryFn: () => fetchMovieDetails({ id }),
+      staleTime: 2 * 6 * 1000,
+      enabled: id > 0,
+    })),
+  });
 
   // This ensures handleKeyPress is only updated when necessary,
   // rather than on every re-render
   const handleKeyPress = useCallback(
     (event: KeyboardEvent) => {
-      if (selectedItemIndex < movieResults.length) {
+      if (selectedItemIndex < results.length) {
         if (event.key === "ArrowUp" && selectedItemIndex > 0) {
           setSelectedItemIndex((prevIndex) => prevIndex - 1);
         }
         if (
           event.key === "ArrowDown" &&
-          selectedItemIndex < movieResults.length - 1
+          selectedItemIndex < results.length - 1
         ) {
           setSelectedItemIndex((prevIndex) => prevIndex + 1);
         }
         if (event.key === "Enter" && selectedItemIndex >= 0) {
-          // pass movie data with context
+          
         }
       } else {
         setSelectedItemIndex(0);
       }
     },
-    [selectedItemIndex, movieResults],
+    [selectedItemIndex, results],
   );
 
   // This ensures we don't remove and re-add event listeners on
@@ -53,19 +70,27 @@ export default function SearchResultList({ results }: SearchResultListProps) {
       tabIndex={-1}
       className="mt-2 cursor-default select-none border-t border-[#434343] pt-1 outline-none"
     >
-      {movieResults.map((movie: { [key: string]: any }, index) => {
-        return (
-          <SearchResult
-            key={movie.id}
-            movieName={movie.title}
-            id={movie.id}
-            posterPath={movie.poster_path}
-            selectedItemIndex={selectedItemIndex}
-            renderIndex={index}
-          >
-            {movie.title}
-          </SearchResult>
-        );
+      {queryResults.map((movies, index) => {
+        if (movies.data) {
+          const { id, title, credits, poster_path } = movies.data;
+          const directors = credits.crew.filter(
+            (crewMember: { job: string }) => crewMember.job === "Director",
+          );
+
+          return (
+            <SearchResult
+              key={id}
+              id={id}
+              movieName={title}
+              directors={directors}
+              posterPath={poster_path}
+              selectedItemIndex={selectedItemIndex}
+              renderIndex={index}
+            >
+              {movies.data.title}
+            </SearchResult>
+          );
+        }
       })}
     </div>
   );

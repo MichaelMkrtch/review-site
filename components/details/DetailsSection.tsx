@@ -4,7 +4,7 @@ import ReviewForm from "./ReviewForm";
 
 export default function DetailsSection() {
   const mediaContext = useMediaContext();
-  const { title } = mediaContext.content;
+  const { title, directors } = mediaContext.content;
 
   return (
     <div className="relative -top-14 mx-12 -mb-2 flex">
@@ -21,7 +21,7 @@ export default function DetailsSection() {
               2023
             </span>{" "}
             <span className="ml-0.5 text-nowrap text-lg font-light text-[#D3D4D9]/70">
-              Justine Triet
+              {directors}
             </span>
           </p>
         </div>

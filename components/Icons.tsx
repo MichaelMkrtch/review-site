@@ -32,7 +32,7 @@ export function MagnifyingGlassIcon({ ...props }) {
       {...props}
     >
       <g
-        stroke="#fff"
+        stroke="#D3D4D9"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.14}
