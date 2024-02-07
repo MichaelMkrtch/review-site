@@ -10,6 +10,7 @@ type SearchResultProps = {
   movieName: string;
   id: number;
   directors: { name: string }[];
+  releaseDate: string;
   posterPath: string;
   selectedItemIndex: number;
   renderIndex: number;
@@ -20,6 +21,7 @@ export default function SearchResult({
   movieName,
   id,
   directors,
+  releaseDate,
   posterPath,
   selectedItemIndex,
   renderIndex,
@@ -75,12 +77,13 @@ export default function SearchResult({
         type: "film",
         title: movieName,
         directors: director,
-        id: id,
+        releaseDate,
+        id,
         poster: posterPath,
       });
       modalContext.showDetails();
     },
-    [mediaContext, modalContext, movieName, director, id, posterPath],
+    [mediaContext, modalContext, movieName, director, releaseDate, id, posterPath],
   );
 
   // Enables keyboard selection of search results

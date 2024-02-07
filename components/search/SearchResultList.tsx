@@ -72,7 +72,7 @@ export default function SearchResultList({ results }: SearchResultListProps) {
     >
       {queryResults.map((movies, index) => {
         if (movies.data) {
-          const { id, title, credits, poster_path } = movies.data;
+          const { id, title, release_date, poster_path, credits } = movies.data;
           const directors = credits.crew.filter(
             (crewMember: { job: string }) => crewMember.job === "Director",
           );
@@ -83,6 +83,7 @@ export default function SearchResultList({ results }: SearchResultListProps) {
               id={id}
               movieName={title}
               directors={directors}
+              releaseDate={release_date}
               posterPath={poster_path}
               selectedItemIndex={selectedItemIndex}
               renderIndex={index}

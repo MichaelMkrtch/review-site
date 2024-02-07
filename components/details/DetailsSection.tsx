@@ -4,7 +4,7 @@ import ReviewForm from "./ReviewForm";
 
 export default function DetailsSection() {
   const mediaContext = useMediaContext();
-  const { title, directors } = mediaContext.content;
+  const { id, title, directors, releaseDate } = mediaContext.content;
 
   return (
     <div className="relative -top-14 mx-12 -mb-2 flex">
@@ -18,7 +18,7 @@ export default function DetailsSection() {
           </p>
           <p>
             <span className="ml-2 text-lg font-light text-[#D3D4D9]/70">
-              2023
+              {releaseDate && releaseDate.slice(0, 4)}
             </span>{" "}
             <span className="ml-0.5 text-nowrap text-lg font-light text-[#D3D4D9]/70">
               {directors}
@@ -26,7 +26,7 @@ export default function DetailsSection() {
           </p>
         </div>
         <div className="h-full">
-          <ReviewForm />
+          <ReviewForm id={id} />
         </div>
       </div>
     </div>
