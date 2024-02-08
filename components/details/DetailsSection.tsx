@@ -4,10 +4,10 @@ import ReviewForm from "./ReviewForm";
 
 export default function DetailsSection() {
   const mediaContext = useMediaContext();
-  const { id, title, directors, releaseDate } = mediaContext.content;
+  const { id, title, directors, releaseDate, poster } = mediaContext.content;
 
   return (
-    <div className="relative -top-14 mx-12 -mb-2 flex">
+    <div className="relative -top-14 mx-12 -mb-4 flex">
       <aside className="mr-12">
         <Poster />
       </aside>
@@ -16,7 +16,7 @@ export default function DetailsSection() {
           <p className="pointer-events-none text-2xl text-[#D3D4D9] drop-shadow">
             {title}
           </p>
-          <p>
+          <p className="mt-0.5">
             <span className="ml-2 text-lg font-light text-[#D3D4D9]/70">
               {releaseDate && releaseDate.slice(0, 4)}
             </span>{" "}
@@ -26,7 +26,7 @@ export default function DetailsSection() {
           </p>
         </div>
         <div className="h-full">
-          <ReviewForm id={id} />
+          <ReviewForm id={id} posterPath={poster} />
         </div>
       </div>
     </div>

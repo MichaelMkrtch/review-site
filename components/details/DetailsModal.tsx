@@ -50,8 +50,8 @@ export default function DetailsModal() {
             <Image
               src={`${IMG_BASE_URL}original${backdrop}`}
               alt="Backdrop image"
-              width={3840}
-              height={2160}
+              width={1000}
+              height={500}
               priority
               className="rounded-lg object-cover"
             />
@@ -59,6 +59,14 @@ export default function DetailsModal() {
         </div>
       )}
       <DetailsSection />
+      <div className="mx-12 -mt-7 mb-6 flex h-full justify-end">
+        <button
+          form="review-form"
+          className="rounded bg-cyan-350 px-4 py-2 text-gray-850 outline-none transition-colors duration-200 ease-in-out hover:bg-cyan-250 active:bg-cyan-400"
+        >
+          Save
+        </button>
+      </div>
     </Modal>
   );
 }
