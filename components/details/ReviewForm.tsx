@@ -26,7 +26,7 @@ export default function ReviewForm({ id, posterPath }: ReviewFormProps) {
   const [review, setReview] = useState<ReviewObject>();
   const [rating, setRating] = useState<number>();
 
-  const modalContext = useModalContext(); 
+  const modalContext = useModalContext();
   const textarea = useRef<HTMLTextAreaElement>(null);
 
   function handleStoreReview(event: FormEvent<HTMLFormElement>) {
@@ -47,7 +47,7 @@ export default function ReviewForm({ id, posterPath }: ReviewFormProps) {
   }
 
   function handleRating(event: SyntheticEvent) {
-    const { value } = event.target as unknown as { value: number };
+    let { value } = event.target as unknown as { value: number };
     setRating(value);
   }
 

@@ -16,6 +16,7 @@ export default function Poster() {
       width={192}
       height={288}
       className="h-72 w-48 rounded object-cover drop-shadow"
+      priority
     />
   );
 }
