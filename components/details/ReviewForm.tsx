@@ -55,6 +55,7 @@ export default function ReviewForm({ id, posterPath }: ReviewFormProps) {
     if (review?.rating && review.reviewText) {
       const reviewJSON = JSON.stringify(review);
       localStorage.setItem(review.id.toString(), reviewJSON);
+      window.dispatchEvent(new Event("storage"));
     }
   }, [review]);
 

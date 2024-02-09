@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { IMG_BASE_URL } from "@/secrets";
 import Image from "next/image";
@@ -8,14 +8,23 @@ import Image from "next/image";
 export default function Library() {
   const [reviews, setReviews] = useState<any[]>();
 
+  // sets initial state and listens for changes in local storage
   useEffect(() => {
-    const allKeysJSON = Object.keys(localStorage);
-    const reviewsJSON = allKeysJSON.map((key) => localStorage.getItem(key));
-    const parsedReviews = reviewsJSON.map((review) => {
-      if (review) return JSON.parse(review);
+    function getReviews() {
+      const allKeysJSON = Object.keys(localStorage);
+      const reviewsJSON = allKeysJSON.map((key) => localStorage.getItem(key));
+      const parsedReviews = reviewsJSON.map((review) => {
+        if (review) return JSON.parse(review);
+      });
+      setReviews(parsedReviews);
+    }
+
+    window.addEventListener("storage", () => {
+      getReviews();
     });
-    setReviews(parsedReviews);
-  }, [reviews]);
+
+    getReviews();
+  }, []);
 
   return (
     <div className="flex flex-wrap">
