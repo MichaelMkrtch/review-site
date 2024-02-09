@@ -34,19 +34,21 @@ export default function PosterGrid() {
   }, []);
 
   return (
-    <section className="inline-grid auto-rows-min auto-cols-min grid-flow-row grid-cols-7 gap-8">
+    <section className="inline-grid auto-cols-min grid-flow-row auto-rows-min grid-cols-7 gap-8">
       {reviews &&
         reviews.map((review) => {
           return (
-            <Poster
-              key={review.id}
-              title={review.title}
-              fetchSize="w342"
-              src={review.posterPath}
-              width={160}
-              height={240}
-              classes="h-60 w-40"
-            />
+            <div key={review.id} className="relative">
+              <Poster
+                key={review.id}
+                title={review.title}
+                fetchSize="w342"
+                src={review.posterPath}
+                width={160}
+                height={240}
+                classes="h-60 w-40 peer hover:scale-110 transition-all duration-100 animate-enter"
+              />
+            </div>
           );
         })}
     </section>
