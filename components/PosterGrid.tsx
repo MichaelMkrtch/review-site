@@ -38,7 +38,6 @@ export default function PosterGrid() {
       {reviews &&
         reviews.map((review) => {
           return (
-            <div key={review.id} className="relative">
               <Poster
                 key={review.id}
                 title={review.title}
@@ -46,9 +45,8 @@ export default function PosterGrid() {
                 src={review.posterPath}
                 width={160}
                 height={240}
-                classes="h-60 w-40 peer hover:scale-110 transition-all duration-100 animate-enter"
+                classes="h-60 w-40"
               />
-            </div>
           );
         })}
     </section>
