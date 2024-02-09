@@ -22,7 +22,7 @@ export default function NavMenu() {
         <li className="px-4">
           <Link href="/library">Library</Link>
         </li>
-        <li className="px-4">
+        <li className="pl-4">
           <button onClick={handleShowSearch} className={buttonClasses}>
             Add Movie
           </button>

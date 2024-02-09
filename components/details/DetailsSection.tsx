@@ -1,5 +1,5 @@
 import { useMediaContext } from "@/context/MediaContext";
-import Poster from "./Poster";
+import Poster from "../Poster";
 import ReviewForm from "./ReviewForm";
 
 export default function DetailsSection() {
@@ -9,7 +9,7 @@ export default function DetailsSection() {
   return (
     <div className="relative -top-14 mx-12 -mb-4 flex">
       <aside className="mr-12">
-        <Poster />
+        <Poster title={title} fetchSize="w780" src={poster} height={288} width={192} classes="h-72 w-48" />
       </aside>
       <div className="flex grow flex-col justify-between text-center">
         <div className="font-sora">
@@ -26,7 +26,7 @@ export default function DetailsSection() {
           </p>
         </div>
         <div className="h-full">
-          <ReviewForm id={id} posterPath={poster} />
+          <ReviewForm id={id} title={title} posterPath={poster} />
         </div>
       </div>
     </div>

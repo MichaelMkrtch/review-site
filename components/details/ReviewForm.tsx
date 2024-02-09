@@ -12,17 +12,19 @@ import { useModalContext } from "@/context/ModalContext";
 
 type ReviewFormProps = {
   id: number;
+  title: string;
   posterPath: string;
 };
 
 type ReviewObject = {
   id: number;
+  title: string;
   posterPath: string;
   rating: number;
   reviewText: string;
 };
 
-export default function ReviewForm({ id, posterPath }: ReviewFormProps) {
+export default function ReviewForm({ id, title, posterPath }: ReviewFormProps) {
   const [review, setReview] = useState<ReviewObject>();
   const [rating, setRating] = useState<number>();
 
@@ -37,6 +39,7 @@ export default function ReviewForm({ id, posterPath }: ReviewFormProps) {
         return {
           ...prevState,
           id,
+          title: title,
           posterPath: posterPath,
           rating: rating,
           reviewText: textarea.current.value,

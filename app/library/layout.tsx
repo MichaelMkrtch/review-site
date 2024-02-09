@@ -2,13 +2,13 @@ import { type ReactNode } from "react";
 
 type LibraryLayoutProps = {
   children: ReactNode;
-}
+};
 
-export default function LibraryLayout({children}: LibraryLayoutProps) {
+export default function LibraryLayout({ children }: LibraryLayoutProps) {
   return (
-    <section className="px-12 py-4">
+    <main className="px-12 pt-6">
       <h2 className="text-xl">Library</h2>
-      {children}
-    </section>
+      <section className="my-6 float-right">{children}</section>
+    </main>
   );
 }
