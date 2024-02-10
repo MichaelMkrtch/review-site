@@ -12,6 +12,7 @@ type SearchResultProps = {
   directors: { name: string }[];
   releaseDate: string;
   posterPath: string;
+  backdrops: { file_path: string }[];
   selectedItemIndex: number;
   renderIndex: number;
   children: ReactNode;
@@ -23,6 +24,7 @@ export default function SearchResult({
   directors,
   releaseDate,
   posterPath,
+  backdrops,
   selectedItemIndex,
   renderIndex,
   children,
@@ -80,10 +82,20 @@ export default function SearchResult({
         releaseDate,
         id,
         poster: posterPath,
+        backdrops: backdrops,
       });
       modalContext.showDetails();
     },
-    [mediaContext, modalContext, movieName, director, releaseDate, id, posterPath],
+    [
+      mediaContext,
+      modalContext,
+      movieName,
+      director,
+      releaseDate,
+      id,
+      posterPath,
+      backdrops,
+    ],
   );
 
   // Enables keyboard selection of search results

@@ -36,7 +36,7 @@ export default function Poster({
           const xPercentage = x / boundingRef.current.width;
           const yPercentage = y / boundingRef.current.height;
           // converts the positions into degrees
-          // y needs to be subtracted from 0.5 so the corners have the same behavior
+          // x needs to be subtracted from 0.5 so all corners have the same behavior
           const xRotation = (0.5 - xPercentage) * 20;
           const yRotation = (yPercentage - 0.5) * 20;
           // x needs to rotate vertically so apply yRotation

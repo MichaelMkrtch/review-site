@@ -46,7 +46,6 @@ export default function SearchResultList({ results }: SearchResultListProps) {
           setSelectedItemIndex((prevIndex) => prevIndex + 1);
         }
         if (event.key === "Enter" && selectedItemIndex >= 0) {
-          
         }
       } else {
         setSelectedItemIndex(0);
@@ -72,8 +71,15 @@ export default function SearchResultList({ results }: SearchResultListProps) {
     >
       {queryResults.map((movies, index) => {
         if (movies.data) {
-          const { id, title, release_date, poster_path, credits: directors } = movies.data;
-
+          const {
+            id,
+            title,
+            credits: directors,
+            release_date,
+            poster_path,
+            images: backdrops,
+          } = movies.data;
+          console.log(movies.data);
           return (
             <SearchResult
               key={id}
@@ -82,6 +88,7 @@ export default function SearchResultList({ results }: SearchResultListProps) {
               directors={directors}
               releaseDate={release_date}
               posterPath={poster_path}
+              backdrops={backdrops}
               selectedItemIndex={selectedItemIndex}
               renderIndex={index}
             >

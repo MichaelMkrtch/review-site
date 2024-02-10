@@ -9,7 +9,14 @@ export default function DetailsSection() {
   return (
     <div className="relative -top-14 mx-12 -mb-4 flex">
       <aside className="mr-12">
-        <Poster title={title} fetchSize="w780" src={poster} height={288} width={192} classes="h-72 w-48" />
+        <Poster
+          title={title}
+          fetchSize="w500"
+          src={poster}
+          height={288}
+          width={192}
+          classes="h-72 w-48"
+        />
       </aside>
       <div className="flex grow flex-col justify-between text-center">
         <div className="font-sora">
