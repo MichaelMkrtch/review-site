@@ -34,16 +34,7 @@ export async function searchMovies({ signal, query }: FetchDataParams) {
 
     const data = await response.json();
 
-    const results = data.results.filter((movie: { [key: string]: any }) => {
-      return (
-        query &&
-        movie &&
-        movie.title &&
-        movie.title.toLowerCase().includes(query)
-      );
-    });
-
-    return results.slice(0, 5);
+    return data.results.slice(0, 5);
   } catch (error) {
     console.log(error);
   }

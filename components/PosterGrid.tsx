@@ -23,13 +23,15 @@ export default function PosterGrid() {
       const parsedReviews = reviewsJSON.map((review) => {
         if (review) return JSON.parse(review);
       });
-      setReviews(parsedReviews);
+      const filteredReviews = parsedReviews.filter(
+        (review: { userAgent: any }) => !review.userAgent,
+      );
+      setReviews(filteredReviews);
     }
 
     window.addEventListener("storage", () => {
       getReviews();
     });
-
     getReviews();
   }, []);
 
@@ -38,15 +40,15 @@ export default function PosterGrid() {
       {reviews &&
         reviews.map((review) => {
           return (
-              <Poster
-                key={review.id}
-                title={review.title}
-                fetchSize="w342"
-                src={review.posterPath}
-                width={160}
-                height={240}
-                classes="h-60 w-40"
-              />
+            <Poster
+              key={review.id}
+              title={review.title}
+              fetchSize="w342"
+              src={review.posterPath}
+              width={160}
+              height={240}
+              classes="h-60 w-40 h-auto"
+            />
           );
         })}
     </section>

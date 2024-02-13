@@ -54,14 +54,16 @@ export default function Poster({
         }}
         className="group relative transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.1)]"
       >
-        <Image
-          src={`${IMG_BASE_URL}${fetchSize}${src}`}
-          alt={`A poster from ${title}`}
-          width={width}
-          height={height}
-          className={classes + " rounded object-cover drop-shadow"}
-          priority
-        />
+        {src && (
+          <Image
+            src={`${IMG_BASE_URL}${fetchSize}${src}`}
+            alt={`A poster from ${title}`}
+            width={width}
+            height={height}
+            className={classes + " rounded object-cover drop-shadow"}
+            priority
+          />
+        )}
         {/* the radial gradient is positioned according to mouse position */}
         <div className="pointer-events-none absolute inset-0 rounded drop-shadow group-hover:bg-[radial-gradient(at_var(--x)_var(--y),rgba(255,255,255,0.1)_15%,transparent_70%)]" />
       </div>

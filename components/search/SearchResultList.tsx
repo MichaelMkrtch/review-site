@@ -79,7 +79,6 @@ export default function SearchResultList({ results }: SearchResultListProps) {
             poster_path,
             images: backdrops,
           } = movies.data;
-          console.log(movies.data);
           return (
             <SearchResult
               key={id}
