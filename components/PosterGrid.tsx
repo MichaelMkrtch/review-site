@@ -36,7 +36,7 @@ export default function PosterGrid() {
   }, []);
 
   return (
-    <section className="inline-grid auto-cols-min grid-flow-row auto-rows-min grid-cols-7 gap-8">
+    <section className="inline-grid auto-cols-min grid-flow-row auto-rows-min grid-cols-2 gap-5 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8">
       {reviews &&
         reviews.map((review) => {
           return (

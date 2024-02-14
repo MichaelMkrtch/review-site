@@ -46,6 +46,9 @@ const config: Config = {
           "100%": { transform: "scale(1)", opacity: "100" },
         },
       },
+      screens: {
+        
+      }
     },
   },
   plugins: [],

@@ -15,7 +15,7 @@ export default function Header() {
     <QueryClientProvider client={queryClient}>
       <SearchModal />
       <DetailsModal />
-      <header className="flex items-center justify-between px-12 py-5">
+      <header className="flex items-center justify-between py-8">
         <div>
           <Link href="/" className="w-1/4">
             <h1 className="text-2xl">Review Site</h1>

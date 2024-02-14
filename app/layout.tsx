@@ -34,7 +34,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className={`${sora.variable} ${plusJakartaSans.variable}`}>
-      <body className="overscroll-none bg-gray-950 text-[#D3D4D9]">
+      <body className="m-auto overscroll-none bg-gray-950 px-6 mb-6 text-[#D3D4D9] md:max-w-screen-lg md:px-10 lg:max-w-screen-xl xl:max-w-[1500px]">
         <AppRouterCacheProvider>
           <ModalContextProvider>
             <MediaContextProvider>
