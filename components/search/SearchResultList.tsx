@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
 
+import { type SearchResult as Result } from "./SearchModal";
 import { fetchMovieDetails } from "@/utils/fetchMovieDetails";
 import SearchResult from "./SearchResult";
 
 type SearchResultListProps = {
-  results: { id: number }[];
+  results: Result[];
 };
 
 export default function SearchResultList({ results }: SearchResultListProps) {
@@ -22,7 +23,7 @@ export default function SearchResultList({ results }: SearchResultListProps) {
     setMovieIDs(movies);
   }, [results]);
 
-  const queryResults = useQueries({
+  const detailsQuery = useQueries({
     queries: movieIDs.map((id) => ({
       queryKey: ["film details", id],
       queryFn: () => fetchMovieDetails({ id }),
@@ -30,6 +31,18 @@ export default function SearchResultList({ results }: SearchResultListProps) {
       enabled: id > 0,
     })),
   });
+
+  const isFetched = detailsQuery.every((query) => query.isFetched);
+
+  if (detailsQuery && isFetched) {
+    const filmDetails = detailsQuery.map((result) => result.data);
+    const directors = filmDetails.map((film: { credits: [] }) => film.credits);
+    const backdrops = filmDetails.map((film: { images: [] }) => film.images);
+    results.map((result, index) => {
+      result.directors = directors[index];
+      result.backdrops = backdrops[index];
+    });
+  }
 
   // This ensures handleKeyPress is only updated when necessary,
   // rather than on every re-render
@@ -69,29 +82,23 @@ export default function SearchResultList({ results }: SearchResultListProps) {
       tabIndex={-1}
       className="mt-2 cursor-default select-none border-t border-[#434343] pt-1 outline-none"
     >
-      {queryResults.map((movies, index) => {
-        if (movies.data) {
-          const {
-            id,
-            title,
-            credits: directors,
-            release_date,
-            poster_path,
-            images: backdrops,
-          } = movies.data;
+      {results.map((movie, index) => {
+        if (movie) {
+          const { id, title, directors, release_date, poster_path, backdrops } =
+            movie;
           return (
             <SearchResult
               key={id}
               id={id}
-              movieName={title}
+              title={title}
               directors={directors}
-              releaseDate={release_date}
-              posterPath={poster_path}
+              release_date={release_date}
+              poster_path={poster_path}
               backdrops={backdrops}
               selectedItemIndex={selectedItemIndex}
               renderIndex={index}
             >
-              {movies.data.title}
+              {movie.title}
             </SearchResult>
           );
         }

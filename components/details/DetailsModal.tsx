@@ -23,7 +23,7 @@ export default function DetailsModal() {
   }
 
   useEffect(() => {
-    if (backdrops) {
+    if (backdrops && backdrops.length > 0) {
       const randInt = Math.floor(Math.random() * backdrops.length);
       setBackdrop(backdrops[randInt].file_path);
     }

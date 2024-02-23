@@ -7,8 +7,8 @@ type ContentObj = {
   id: number;
   title: string;
   directors: string;
-  releaseDate: string;
-  poster: string;
+  release_date: string;
+  poster_path: string;
   backdrops: { file_path: string }[];
 };
 
@@ -41,7 +41,7 @@ export default function MediaContextProvider({
   const [content, setContent] = useState({ id: 0 } as ContentObj);
 
   function writeData(contentData: ContentObj) {
-    const { type, id, title, directors, releaseDate, poster, backdrops } =
+    const { type, id, title, directors, release_date, poster_path, backdrops } =
       contentData;
 
     setContent((prevContent) => {
@@ -51,8 +51,8 @@ export default function MediaContextProvider({
         id,
         title,
         directors,
-        releaseDate,
-        poster,
+        release_date,
+        poster_path,
         backdrops,
       };
     });

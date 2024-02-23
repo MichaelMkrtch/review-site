@@ -12,9 +12,18 @@ import Modal from "@/components/Modal";
 import SearchBar from "@/components/search/SearchBar";
 import SearchResultList from "@/components/search/SearchResultList";
 
+export interface SearchResult {
+  id: number;
+  title: string;
+  directors: { name: string }[];
+  release_date: string;
+  poster_path: string;
+  backdrops: { file_path: string }[];
+}
+
 export default function SearchModal() {
-  const [query, setQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<{ id: number }[]>([]);
+  const [query, setQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
   const searchElement = useRef<HTMLInputElement>(null);
 
@@ -56,6 +65,8 @@ export default function SearchModal() {
       setQuery(searchElement.current.value);
     }
   }
+
+  console.log(searchResults);
 
   return (
     <Modal

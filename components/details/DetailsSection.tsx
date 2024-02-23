@@ -4,7 +4,8 @@ import ReviewForm from "./ReviewForm";
 
 export default function DetailsSection() {
   const mediaContext = useMediaContext();
-  const { id, title, directors, releaseDate, poster } = mediaContext.content;
+  const { id, title, directors, release_date, poster_path } =
+    mediaContext.content;
 
   return (
     <div className="relative -top-14 mx-12 -mb-4 flex">
@@ -12,7 +13,7 @@ export default function DetailsSection() {
         <Poster
           title={title}
           fetchSize="w500"
-          src={poster}
+          src={poster_path}
           height={288}
           width={192}
           classes="h-72 w-48"
@@ -25,7 +26,7 @@ export default function DetailsSection() {
           </p>
           <p className="mt-0.5">
             <span className="ml-2 text-lg font-light text-[#D3D4D9]/70">
-              {releaseDate && releaseDate.slice(0, 4)}
+              {release_date && release_date.slice(0, 4)}
             </span>{" "}
             <span className="ml-0.5 text-nowrap text-lg font-light text-[#D3D4D9]/70">
               {directors}
@@ -33,7 +34,7 @@ export default function DetailsSection() {
           </p>
         </div>
         <div className="h-full">
-          <ReviewForm id={id} title={title} posterPath={poster} />
+          <ReviewForm id={id} title={title} posterPath={poster_path} />
         </div>
       </div>
     </div>
