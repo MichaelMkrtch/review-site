@@ -1,7 +1,4 @@
-"use client";
-
 import { useEffect, useState } from "react";
-
 import Image from "next/image";
 
 import { IMG_BASE_URL } from "@/secrets";
@@ -11,23 +8,22 @@ import DetailsSection from "./DetailsSection";
 import { useMediaContext } from "@/context/MediaContext";
 
 export default function DetailsModal() {
-  const [backdrop, setBackdrop] = useState<string>();
+  const [backdrop, setBackdrop] = useState("");
+  const [poster, setPoster] = useState("");
 
   const modalContext = useModalContext();
   const mediaContext = useMediaContext();
 
-  const { backdrops } = mediaContext.content;
+  useEffect(() => {
+    setBackdrop(mediaContext.content.backdrop_path);
+    setPoster(mediaContext.content.poster_path);
+  }, [mediaContext.content]);
 
   function handleCloseDetails() {
     modalContext.hideDetails();
+    setBackdrop("");
+    setPoster("");
   }
-
-  useEffect(() => {
-    if (backdrops && backdrops.length > 0) {
-      const randInt = Math.floor(Math.random() * backdrops.length);
-      setBackdrop(backdrops[randInt].file_path);
-    }
-  }, [backdrops]);
 
   return (
     <Modal
@@ -35,22 +31,20 @@ export default function DetailsModal() {
       open={modalContext.type === "showDetails"}
       onClose={handleCloseDetails}
     >
-      {backdrops && (
+      {backdrop && (
         <div className="relative">
-          <div className="absolute h-full w-full bg-gradient-to-t from-[#181818] via-transparent to-transparent px-1 pb-1" />
-          {backdrop && (
-            <Image
-              src={`${IMG_BASE_URL}w1280${backdrop}`}
-              alt="Backdrop image"
-              width={1000}
-              height={500}
-              className="rounded-lg object-cover"
-              priority
-            />
-          )}
+          <div className="absolute h-full w-full bg-gradient-to-t from-[#181818] via-transparent to-transparent" />
+          <Image
+            src={`${IMG_BASE_URL}w1280${backdrop}`}
+            alt="Backdrop image"
+            width={900}
+            height={500}
+            className="h-[500px] w-[900px] rounded-lg object-cover"
+            loading="lazy"
+          />
         </div>
       )}
-      <DetailsSection />
+      <DetailsSection poster={poster} />
       <div className="mx-12 -mt-7 mb-6 flex h-full justify-end">
         <button
           form="review-form"

@@ -32,15 +32,12 @@ export default function SearchResultList({ results }: SearchResultListProps) {
     })),
   });
 
-  const isFetched = detailsQuery.every((query) => query.isFetched);
+  const isSuccess = detailsQuery.some((query) => query.isSuccess);
 
-  if (detailsQuery && isFetched) {
-    const filmDetails = detailsQuery.map((result) => result.data);
-    const directors = filmDetails.map((film: { credits: [] }) => film.credits);
-    const backdrops = filmDetails.map((film: { images: [] }) => film.images);
+  if (detailsQuery && isSuccess) {
+    const directors = detailsQuery.map((result) => result.data);
     results.map((result, index) => {
       result.directors = directors[index];
-      result.backdrops = backdrops[index];
     });
   }
 
@@ -84,22 +81,30 @@ export default function SearchResultList({ results }: SearchResultListProps) {
     >
       {results.map((movie, index) => {
         if (movie) {
-          const { id, title, directors, release_date, poster_path, backdrops } =
-            movie;
+          const {
+            id,
+            title,
+            directors,
+            release_date,
+            poster_path,
+            backdrop_path,
+          } = movie;
           return (
-            <SearchResult
-              key={id}
-              id={id}
-              title={title}
-              directors={directors}
-              release_date={release_date}
-              poster_path={poster_path}
-              backdrops={backdrops}
-              selectedItemIndex={selectedItemIndex}
-              renderIndex={index}
-            >
-              {movie.title}
-            </SearchResult>
+            isSuccess && (
+              <SearchResult
+                key={id}
+                id={id}
+                title={title}
+                directors={directors}
+                release_date={release_date}
+                poster_path={poster_path}
+                backdrop_path={backdrop_path}
+                selectedItemIndex={selectedItemIndex}
+                renderIndex={index}
+              >
+                {movie.title}
+              </SearchResult>
+            )
           );
         }
       })}

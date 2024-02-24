@@ -19,7 +19,7 @@ export default function SearchResult({
   directors,
   release_date,
   poster_path,
-  backdrops,
+  backdrop_path,
   selectedItemIndex,
   renderIndex,
   children,
@@ -79,11 +79,11 @@ export default function SearchResult({
       mediaContext.writeData({
         type: "film",
         id,
-        title: title,
+        title,
         directors: director,
         release_date,
         poster_path,
-        backdrops: backdrops,
+        backdrop_path,
       });
       modalContext.showDetails();
     },
@@ -95,7 +95,7 @@ export default function SearchResult({
       director,
       release_date,
       poster_path,
-      backdrops,
+      backdrop_path,
     ],
   );
 

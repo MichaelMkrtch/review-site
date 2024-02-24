@@ -18,7 +18,7 @@ export interface SearchResult {
   directors: { name: string }[];
   release_date: string;
   poster_path: string;
-  backdrops: { file_path: string }[];
+  backdrop_path: string;
 }
 
 export default function SearchModal() {
@@ -65,8 +65,6 @@ export default function SearchModal() {
       setQuery(searchElement.current.value);
     }
   }
-
-  console.log(searchResults);
 
   return (
     <Modal

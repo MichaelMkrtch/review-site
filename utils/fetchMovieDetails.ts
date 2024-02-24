@@ -5,7 +5,7 @@ type FetchMovieDetailsParams = {
 };
 
 export async function fetchMovieDetails({ id }: FetchMovieDetailsParams) {
-  const url = `https://api.themoviedb.org/3/movie/${id}?append_to_response=credits%2Cimages`;
+  const url = `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`;
 
   const options = {
     method: "GET",
@@ -24,13 +24,13 @@ export async function fetchMovieDetails({ id }: FetchMovieDetailsParams) {
     }
 
     const data = await response.json();
-    data.images = data.images.backdrops.slice(0, 3);
-    data.credits = data.credits.crew.filter(
+
+    const directors = data.crew.filter(
       (crewMember: { job: string; department: string }) =>
         crewMember.job === "Director" && crewMember.department === "Directing",
     );
 
-    return data;
+    return directors;
   } catch (error) {
     console.log(error);
   }

@@ -2,10 +2,13 @@ import { useMediaContext } from "@/context/MediaContext";
 import Poster from "../Poster";
 import ReviewForm from "./ReviewForm";
 
-export default function DetailsSection() {
+type DetailsSectionProps = {
+  poster: string;
+};
+
+export default function DetailsSection({ poster }: DetailsSectionProps) {
   const mediaContext = useMediaContext();
-  const { id, title, directors, release_date, poster_path } =
-    mediaContext.content;
+  const { id, title, directors, release_date } = mediaContext.content;
 
   return (
     <div className="relative -top-14 mx-12 -mb-4 flex">
@@ -13,7 +16,7 @@ export default function DetailsSection() {
         <Poster
           title={title}
           fetchSize="w500"
-          src={poster_path}
+          src={poster}
           height={288}
           width={192}
           classes="h-72 w-48"
@@ -34,7 +37,7 @@ export default function DetailsSection() {
           </p>
         </div>
         <div className="h-full">
-          <ReviewForm id={id} title={title} posterPath={poster_path} />
+          <ReviewForm id={id} title={title} posterPath={poster} />
         </div>
       </div>
     </div>
