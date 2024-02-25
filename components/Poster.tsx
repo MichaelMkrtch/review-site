@@ -61,7 +61,7 @@ export default function Poster({
             width={width}
             height={height}
             className={classes + " rounded object-cover drop-shadow"}
-            loading="lazy"
+            priority
           />
         )}
         {/* the radial gradient is positioned according to mouse position */}

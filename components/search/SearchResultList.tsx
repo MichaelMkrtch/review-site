@@ -32,9 +32,9 @@ export default function SearchResultList({ results }: SearchResultListProps) {
     })),
   });
 
-  const isSuccess = detailsQuery.some((query) => query.isSuccess);
+  const isLoading = detailsQuery.every((query) => query.isLoading);
 
-  if (detailsQuery && isSuccess) {
+  if (detailsQuery && !isLoading) {
     const directors = detailsQuery.map((result) => result.data);
     results.map((result, index) => {
       result.directors = directors[index];
@@ -80,33 +80,29 @@ export default function SearchResultList({ results }: SearchResultListProps) {
       className="mt-2 cursor-default select-none border-t border-[#434343] pt-1 outline-none"
     >
       {results.map((movie, index) => {
-        if (movie) {
-          const {
-            id,
-            title,
-            directors,
-            release_date,
-            poster_path,
-            backdrop_path,
-          } = movie;
-          return (
-            isSuccess && (
-              <SearchResult
-                key={id}
-                id={id}
-                title={title}
-                directors={directors}
-                release_date={release_date}
-                poster_path={poster_path}
-                backdrop_path={backdrop_path}
-                selectedItemIndex={selectedItemIndex}
-                renderIndex={index}
-              >
-                {movie.title}
-              </SearchResult>
-            )
-          );
-        }
+        const {
+          id,
+          title,
+          directors,
+          release_date,
+          poster_path,
+          backdrop_path,
+        } = movie;
+        return (
+          <SearchResult
+            key={id}
+            id={id}
+            title={title}
+            directors={directors}
+            release_date={release_date}
+            poster_path={poster_path}
+            backdrop_path={backdrop_path}
+            selectedItemIndex={selectedItemIndex}
+            renderIndex={index}
+          >
+            {title}
+          </SearchResult>
+        );
       })}
     </div>
   );

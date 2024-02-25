@@ -25,12 +25,12 @@ export async function fetchMovieDetails({ id }: FetchMovieDetailsParams) {
 
     const data = await response.json();
 
-    const directors = data.crew.filter(
+    const directorList = data.crew.filter(
       (crewMember: { job: string; department: string }) =>
         crewMember.job === "Director" && crewMember.department === "Directing",
     );
 
-    return directors;
+    return directorList;
   } catch (error) {
     console.log(error);
   }
