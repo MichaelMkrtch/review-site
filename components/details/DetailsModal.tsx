@@ -35,7 +35,7 @@ export default function DetailsModal() {
         <div className="relative">
           <div className="absolute h-full w-full bg-gradient-to-t from-[#181818] via-transparent to-transparent" />
           <Image
-            src={`${IMG_BASE_URL}w1280${backdrop}`}
+            src={`${IMG_BASE_URL}original${backdrop}`}
             alt="Backdrop image"
             width={900}
             height={500}

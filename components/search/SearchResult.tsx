@@ -128,7 +128,9 @@ export default function SearchResult({
           {poster_path ? poster : gradient}
         </div>
         <div className="flex items-baseline text-left">
-          <p>{children} ({release_date.slice(0, 4)})</p>
+          <p>
+            {children} ({release_date.slice(0, 4)})
+          </p>
           <span className="pl-2.5 align-bottom text-sm text-[#D3D4D9]/60">
             {director}
           </span>
