@@ -5,21 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { searchMovies } from "@/utils/searchMovies";
 import { fetchTrendingMovies } from "@/utils/fetchTrendingMovies";
+import { type Movie as SearchResult } from "@/utils/fetchMovieDetails";
 import { useModalContext } from "@/context/ModalContext";
 import { useDebounce } from "@/hooks/useDebounce";
 
 import Modal from "@/components/Modal";
 import SearchBar from "@/components/search/SearchBar";
 import SearchResultList from "@/components/search/SearchResultList";
-
-export interface SearchResult {
-  id: number;
-  title: string;
-  directors: { name: string }[];
-  release_date: string;
-  poster_path: string;
-  backdrop_path: string;
-}
 
 export default function SearchModal() {
   const [query, setQuery] = useState("");

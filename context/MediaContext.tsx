@@ -7,13 +7,13 @@ type ContentObj = {
   id: number;
   title: string;
   directors: string;
-  release_date: string;
-  poster_path: string;
-  backdrop_path: string;
+  releaseDate: string;
+  posterPath: string;
+  backdrops: { file_path: string }[];
 };
 
 type MediaContextValue = {
-  content: ContentObj;
+  content: ContentState;
   writeData: ({}: ContentObj) => void;
 };
 
@@ -35,21 +35,24 @@ type MediaContextProviderProps = {
   children: ReactNode;
 };
 
+interface ContentState extends ContentObj {
+  backdropPath: string | undefined;
+}
+
 export default function MediaContextProvider({
   children,
 }: MediaContextProviderProps) {
-  const [content, setContent] = useState({ id: 0 } as ContentObj);
+  const [content, setContent] = useState({ id: 0 } as ContentState);
 
   function writeData(contentData: ContentObj) {
-    const {
-      type,
-      id,
-      title,
-      directors,
-      release_date,
-      poster_path,
-      backdrop_path,
-    } = contentData;
+    const { type, id, title, directors, releaseDate, posterPath, backdrops } =
+      contentData;
+
+    const randomIndex = Math.floor(Math.random() * backdrops.length);
+    let backdropPath: string;
+    if (backdrops.length) {
+      backdropPath = backdrops[randomIndex].file_path;
+    }
 
     setContent((prevContent) => {
       return {
@@ -58,9 +61,9 @@ export default function MediaContextProvider({
         id,
         title,
         directors,
-        release_date,
-        poster_path,
-        backdrop_path,
+        releaseDate,
+        posterPath,
+        backdropPath,
       };
     });
   }

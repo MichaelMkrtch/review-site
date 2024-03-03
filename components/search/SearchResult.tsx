@@ -2,12 +2,12 @@ import { type ReactNode, useCallback, useEffect } from "react";
 
 import Image from "next/image";
 
-import { type SearchResult } from "./SearchModal";
+import { type Movie } from "@/utils/fetchMovieDetails";
 import { IMG_BASE_URL } from "@/secrets.ts";
 import { useModalContext } from "@/context/ModalContext";
 import { useMediaContext } from "@/context/MediaContext";
 
-interface SearchResultProps extends SearchResult {
+interface SearchResultProps extends Movie {
   selectedItemIndex: number;
   renderIndex: number;
   children: ReactNode;
@@ -17,9 +17,9 @@ export default function SearchResult({
   id,
   title,
   directors,
-  release_date,
-  poster_path,
-  backdrop_path,
+  releaseDate,
+  posterPath,
+  backdrops,
   selectedItemIndex,
   renderIndex,
   children,
@@ -27,19 +27,19 @@ export default function SearchResult({
   const modalContext = useModalContext();
   const mediaContext = useMediaContext();
 
-  let director = "";
+  let directorList = "";
 
   if (directors) {
     if (directors.length > 2) {
-      director =
+      directorList =
         directors
           .map((director) => director.name)
           .slice(0, 2)
           .join(", ") + ", et al.";
     } else if (directors.length === 2) {
-      director = directors.map((director) => director.name).join(", ");
+      directorList = directors.map((director) => director.name).join(", ");
     } else if (directors.length === 1) {
-      director = directors[0].name;
+      directorList = directors[0].name;
     }
   }
 
@@ -58,10 +58,10 @@ export default function SearchResult({
   let poster;
   let gradient;
 
-  if (poster_path) {
+  if (posterPath) {
     poster = (
       <Image
-        src={`${IMG_BASE_URL}w92${poster_path}`}
+        src={`${IMG_BASE_URL}w92${posterPath}`}
         className="h-12 w-8 rounded object-contain"
         width={92}
         height={138}
@@ -80,10 +80,10 @@ export default function SearchResult({
         type: "film",
         id,
         title,
-        directors: director,
-        release_date,
-        poster_path,
-        backdrop_path,
+        directors: directorList,
+        releaseDate,
+        posterPath,
+        backdrops,
       });
       modalContext.showDetails();
     },
@@ -92,10 +92,10 @@ export default function SearchResult({
       modalContext,
       id,
       title,
-      director,
-      release_date,
-      poster_path,
-      backdrop_path,
+      directorList,
+      releaseDate,
+      posterPath,
+      backdrops,
     ],
   );
 
@@ -125,14 +125,14 @@ export default function SearchResult({
         onClick={handleShowDetails}
       >
         <div className="pointer-events-none mr-1.5 flex px-2">
-          {poster_path ? poster : gradient}
+          {posterPath ? poster : gradient}
         </div>
         <div className="flex items-baseline text-left">
           <p>
-            {children} ({release_date.slice(0, 4)})
+            {children} ({releaseDate})
           </p>
           <span className="pl-2.5 align-bottom text-sm text-[#D3D4D9]/60">
-            {director}
+            {directorList}
           </span>
         </div>
       </button>

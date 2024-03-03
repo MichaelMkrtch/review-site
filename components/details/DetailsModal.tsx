@@ -15,8 +15,9 @@ export default function DetailsModal() {
   const mediaContext = useMediaContext();
 
   useEffect(() => {
-    setBackdrop(mediaContext.content.backdrop_path);
-    setPoster(mediaContext.content.poster_path);
+    const content = mediaContext.content;
+    content.backdropPath && setBackdrop(content.backdropPath);
+    content.posterPath && setPoster(content.posterPath);
   }, [mediaContext.content]);
 
   function handleCloseDetails() {

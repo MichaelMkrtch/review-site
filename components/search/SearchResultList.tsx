@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
 
-import { type SearchResult as Result } from "./SearchModal";
-import { fetchMovieDetails } from "@/utils/fetchMovieDetails";
+import { type Movie, fetchMovieDetails } from "@/utils/fetchMovieDetails";
 import SearchResult from "./SearchResult";
 
 type SearchResultListProps = {
-  results: Result[];
+  results: Movie[];
 };
 
 export default function SearchResultList({ results }: SearchResultListProps) {
@@ -34,11 +33,12 @@ export default function SearchResultList({ results }: SearchResultListProps) {
 
   const isLoading = detailsQuery.every((query) => query.isLoading);
 
+  const movies: Movie[] = [];
+
   if (detailsQuery && !isLoading) {
-    const directors = detailsQuery.map((result) => result.data);
-    results.map((result, index) => {
-      result.directors = directors[index];
-    });
+    for (let movieDetail of detailsQuery) {
+      movieDetail.data && movies.push(movieDetail.data);
+    }
   }
 
   // This ensures handleKeyPress is only updated when necessary,
@@ -79,24 +79,18 @@ export default function SearchResultList({ results }: SearchResultListProps) {
       tabIndex={-1}
       className="mt-2 cursor-default select-none border-t border-[#434343] pt-1 outline-none"
     >
-      {results.map((movie, index) => {
-        const {
-          id,
-          title,
-          directors,
-          release_date,
-          poster_path,
-          backdrop_path,
-        } = movie;
+      {movies.map((movie, index) => {
+        const { id, title, directors, releaseDate, posterPath, backdrops } =
+          movie;
         return (
           <SearchResult
             key={id}
             id={id}
             title={title}
             directors={directors}
-            release_date={release_date}
-            poster_path={poster_path}
-            backdrop_path={backdrop_path}
+            releaseDate={releaseDate}
+            posterPath={posterPath}
+            backdrops={backdrops}
             selectedItemIndex={selectedItemIndex}
             renderIndex={index}
           >

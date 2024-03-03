@@ -8,7 +8,7 @@ type DetailsSectionProps = {
 
 export default function DetailsSection({ poster }: DetailsSectionProps) {
   const mediaContext = useMediaContext();
-  const { id, title, directors, release_date } = mediaContext.content;
+  const { id, title, directors, releaseDate } = mediaContext.content;
 
   return (
     <div className="relative -top-14 mx-12 -mb-4 flex">
@@ -29,7 +29,7 @@ export default function DetailsSection({ poster }: DetailsSectionProps) {
           </p>
           <p className="mt-0.5">
             <span className="ml-2 text-lg font-light text-[#D3D4D9]/70">
-              {release_date && release_date.slice(0, 4)}
+              {releaseDate ? releaseDate : ""}
             </span>{" "}
             <span className="ml-0.5 text-nowrap text-lg font-light text-[#D3D4D9]/70">
               {directors}
