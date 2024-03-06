@@ -47,8 +47,12 @@ export default function SearchModal() {
     }
   }, [searchData, trendingData, isLoadingSearch]);
 
+  function clearQuery() {
+    setQuery("")
+  }
+
   function handleCloseSearch() {
-    setQuery("");
+    clearQuery()
     modalContext.hideSearch();
   }
 
@@ -63,7 +67,7 @@ export default function SearchModal() {
       hasPadding={true}
       open={modalContext.type === "showSearch"}
       onClose={
-        modalContext.type === "showSearch" ? handleCloseSearch : undefined
+        modalContext.type === "showSearch" ? handleCloseSearch : clearQuery
       }
     >
       <SearchBar ref={searchElement} query={query} onChange={handleChange} />

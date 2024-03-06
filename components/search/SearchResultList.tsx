@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useQueries } from "@tanstack/react-query";
+import { useSuspenseQueries } from "@tanstack/react-query";
 
 import { type Movie, fetchMovieDetails } from "@/utils/fetchMovieDetails";
 import SearchResult from "./SearchResult";
@@ -13,29 +13,29 @@ export default function SearchResultList({ results }: SearchResultListProps) {
   const [movieIDs, setMovieIDs] = useState<number[]>([]);
 
   useEffect(() => {
-    let movies: number[] = [];
+    let movieList: number[] = [];
 
     for (const result of results) {
-      movies.push(result.id);
+      movieList.push(result.id);
     }
 
-    setMovieIDs(movies);
+    setMovieIDs(movieList);
   }, [results]);
 
-  const detailsQuery = useQueries({
+  const detailsQuery = useSuspenseQueries({
     queries: movieIDs.map((id) => ({
       queryKey: ["film details", id],
       queryFn: () => fetchMovieDetails({ id }),
       staleTime: 2 * 6 * 1000,
-      enabled: id > 0,
+      // enabled: id > 0,
     })),
   });
 
-  const isLoading = detailsQuery.every((query) => query.isLoading);
+  // const isFetched = detailsQuery.every((query) => query.isFetched);
 
   const movies: Movie[] = [];
 
-  if (detailsQuery && !isLoading) {
+  if (detailsQuery) {
     for (let movieDetail of detailsQuery) {
       movieDetail.data && movies.push(movieDetail.data);
     }
