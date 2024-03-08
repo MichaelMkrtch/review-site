@@ -3,9 +3,10 @@ import Image from "next/image";
 
 import { IMG_BASE_URL } from "@/secrets";
 import { useModalContext } from "@/context/ModalContext";
+import { useMediaContext } from "@/context/MediaContext";
+import useImageOnLoad from "@/hooks/useImageOnLoad";
 import Modal from "../Modal";
 import DetailsSection from "./DetailsSection";
-import { useMediaContext } from "@/context/MediaContext";
 
 export default function DetailsModal() {
   const [backdrop, setBackdrop] = useState("");
@@ -13,6 +14,8 @@ export default function DetailsModal() {
 
   const modalContext = useModalContext();
   const mediaContext = useMediaContext();
+
+  const { handleImageOnLoad, setIsLoaded, transitionStyles } = useImageOnLoad();
 
   useEffect(() => {
     const content = mediaContext.content;
@@ -24,6 +27,7 @@ export default function DetailsModal() {
     modalContext.hideDetails();
     setBackdrop("");
     setPoster("");
+    setIsLoaded(false);
   }
 
   return (
@@ -33,15 +37,24 @@ export default function DetailsModal() {
       onClose={handleCloseDetails}
     >
       {backdrop && (
-        <div className="relative">
+        <div className="relative h-auto w-full">
           <div className="absolute h-full w-full bg-gradient-to-t from-[#181818] via-transparent to-transparent" />
           <Image
+            src={`${IMG_BASE_URL}w300${backdrop}`}
+            alt={`Still image from ${mediaContext.content.title}`}
+            width={5}
+            height={5}
+            className=" relative top-0 h-auto w-full rounded-lg object-cover blur-[2px] [image-rendering:_pixelated]"
+            style={transitionStyles.lowRes}
+          />
+          <Image
+            onLoad={handleImageOnLoad}
             src={`${IMG_BASE_URL}original${backdrop}`}
-            alt="Backdrop image"
+            alt={`Still image from ${mediaContext.content.title}`}
             width={900}
             height={500}
-            className="h-[500px] w-[900px] rounded-lg object-cover"
-            loading="lazy"
+            className="absolute top-0 bottom-0 -z-10 h-full max-h-full w-full max-w-full rounded-lg object-cover"
+            style={transitionStyles.highRes}
           />
         </div>
       )}

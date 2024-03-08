@@ -47,7 +47,7 @@ export default function PosterGrid() {
               src={review.posterPath}
               width={160}
               height={240}
-              classes="h-60 w-40 h-auto"
+              classes="h-60 w-40"
             />
           );
         })}

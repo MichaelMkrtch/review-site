@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
-        fadein: "fadein 0.2s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
+        fadein: "fadein 0.1s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
         enter: "enter 0.2s cubic-bezier(0.79, 0.33, 0.14, 0.53)",
       },
       backgroundImage: {

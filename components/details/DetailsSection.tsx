@@ -19,7 +19,7 @@ export default function DetailsSection({ poster }: DetailsSectionProps) {
           src={poster}
           height={288}
           width={192}
-          classes="h-72 w-48"
+          classes="h-auto w-full"
         />
       </aside>
       <div className="flex grow flex-col justify-between text-center">
