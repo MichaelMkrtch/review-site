@@ -12,13 +12,13 @@ export default function DetailsSection({ poster }: DetailsSectionProps) {
 
   return (
     <div className="relative -top-14 mx-12 -mb-4 flex">
-      <aside className="mr-12">
+      <aside className="mr-12 h-72 w-48">
         <Poster
           title={title}
-          fetchSize="w500"
           src={poster}
-          height={288}
+          fetchSize="w500"
           width={192}
+          height={288}
           classes="h-auto w-full"
         />
       </aside>

@@ -43,10 +43,11 @@ export default function PosterGrid() {
             <Poster
               key={review.id}
               title={review.title}
-              fetchSize="w342"
               src={review.posterPath}
+              fetchSize="w342"
               width={160}
               height={240}
+              grid={true}
               classes="h-60 w-40"
             />
           );

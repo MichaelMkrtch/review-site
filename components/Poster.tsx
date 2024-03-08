@@ -1,14 +1,16 @@
+import { useRef } from "react";
 import Image from "next/image";
 
 import { IMG_BASE_URL } from "@/secrets";
-import { useRef } from "react";
+import useImageOnLoad from "@/hooks/useImageOnLoad";
 
 type PosterProps = {
   title: string;
-  fetchSize: string;
   src: string;
+  fetchSize: string;
   width: number;
   height: number;
+  grid?: boolean;
   classes: string;
 };
 
@@ -18,9 +20,19 @@ export default function Poster({
   src,
   width,
   height,
+  grid,
   classes,
 }: PosterProps) {
   const boundingRef = useRef<DOMRect | null>(null);
+
+  const { handleImageOnLoad, isLoaded, transitionStyles } = useImageOnLoad();
+
+  let perspectiveClasses = "";
+  if (isLoaded) {
+    console.log("I'm loaded!");
+    perspectiveClasses =
+      "group relative transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.1)]";
+  }
 
   return (
     <div className="[perspective:800px]">
@@ -52,17 +64,37 @@ export default function Poster({
           event.currentTarget.style.setProperty("--x", `${xPercentage * 100}%`);
           event.currentTarget.style.setProperty("--y", `${yPercentage * 100}%`);
         }}
-        className="group relative transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.1)]"
+        className={perspectiveClasses}
       >
         {src && (
-          <Image
-            src={`${IMG_BASE_URL}${fetchSize}${src}`}
-            alt={`A poster from ${title}`}
-            width={width}
-            height={height}
-            className={classes + " rounded object-cover drop-shadow"}
-            priority
-          />
+          <>
+            {grid && (
+              <Image
+                src={`${IMG_BASE_URL}w92${src}`}
+                alt={`A poster from the film ${title}`}
+                width={5}
+                height={5}
+                className={
+                  classes +
+                  " absolute rounded object-cover blur-[2px] drop-shadow [image-rendering:_pixelated]"
+                }
+                style={transitionStyles.lowRes}
+                priority
+              />
+            )}
+            <Image
+              onLoad={handleImageOnLoad}
+              src={`${IMG_BASE_URL}${fetchSize}${src}`}
+              alt={`A poster from the film ${title}`}
+              width={width}
+              height={height}
+              className={
+                classes + " relative top-0 rounded object-cover drop-shadow"
+              }
+              style={transitionStyles.highRes}
+              priority
+            />
+          </>
         )}
         {/* the radial gradient is positioned according to mouse position */}
         <div className="pointer-events-none absolute inset-0 rounded drop-shadow group-hover:bg-[radial-gradient(at_var(--x)_var(--y),rgba(255,255,255,0.1)_15%,transparent_70%)]" />

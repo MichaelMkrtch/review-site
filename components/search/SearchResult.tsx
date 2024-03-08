@@ -62,10 +62,11 @@ export default function SearchResult({
     poster = (
       <Image
         src={`${IMG_BASE_URL}w92${posterPath}`}
-        className="h-12 w-8 rounded object-contain"
+        alt={`A poster from the film {title}`}
         width={92}
         height={138}
-        alt="A movie poster"
+        className="h-12 w-8 rounded object-contain"
+        priority
       />
     );
   } else {

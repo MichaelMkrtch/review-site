@@ -15,7 +15,7 @@ const useImageOnLoad = () => {
     },
   };
 
-  return { handleImageOnLoad, setIsLoaded, transitionStyles };
+  return { handleImageOnLoad, isLoaded, setIsLoaded, transitionStyles };
 };
 
 export default useImageOnLoad;
