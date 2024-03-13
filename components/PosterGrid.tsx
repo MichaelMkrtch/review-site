@@ -47,8 +47,6 @@ export default function PosterGrid() {
               fetchSize="w342"
               width={160}
               height={240}
-              grid={true}
-              classes="h-60 w-40"
             />
           );
         })}

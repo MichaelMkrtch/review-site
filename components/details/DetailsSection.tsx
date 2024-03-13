@@ -19,7 +19,6 @@ export default function DetailsSection({ poster }: DetailsSectionProps) {
           fetchSize="w500"
           width={192}
           height={288}
-          classes="h-auto w-full"
         />
       </aside>
       <div className="flex grow flex-col justify-between text-center">
@@ -37,7 +36,7 @@ export default function DetailsSection({ poster }: DetailsSectionProps) {
           </p>
         </div>
         <div className="h-full">
-          <ReviewForm id={id} title={title} posterPath={poster} />
+          <ReviewForm key={id} id={id} title={title} posterPath={poster} />
         </div>
       </div>
     </div>

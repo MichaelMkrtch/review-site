@@ -80,21 +80,14 @@ export default function SearchResultList({ results }: SearchResultListProps) {
       className="mt-2 cursor-default select-none border-t border-[#434343] pt-1 outline-none"
     >
       {movies.map((movie, index) => {
-        const { id, title, directors, releaseDate, posterPath, backdrops } =
-          movie;
         return (
           <SearchResult
-            key={id}
-            id={id}
-            title={title}
-            directors={directors}
-            releaseDate={releaseDate}
-            posterPath={posterPath}
-            backdrops={backdrops}
+            key={movie.id}
+            {...movie}
             selectedItemIndex={selectedItemIndex}
             renderIndex={index}
           >
-            {title}
+            {movie.title}
           </SearchResult>
         );
       })}

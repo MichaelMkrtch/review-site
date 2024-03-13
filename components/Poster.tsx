@@ -11,7 +11,6 @@ type PosterProps = {
   width: number;
   height: number;
   grid?: boolean;
-  classes: string;
 };
 
 export default function Poster({
@@ -20,8 +19,6 @@ export default function Poster({
   src,
   width,
   height,
-  grid,
-  classes,
 }: PosterProps) {
   const boundingRef = useRef<DOMRect | null>(null);
 
@@ -29,7 +26,6 @@ export default function Poster({
 
   let perspectiveClasses = "";
   if (isLoaded) {
-    console.log("I'm loaded!");
     perspectiveClasses =
       "group relative transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.1)]";
   }
@@ -68,29 +64,22 @@ export default function Poster({
       >
         {src && (
           <>
-            {grid && (
-              <Image
-                src={`${IMG_BASE_URL}w92${src}`}
-                alt={`A poster from the film ${title}`}
-                width={5}
-                height={5}
-                className={
-                  classes +
-                  " absolute rounded object-cover blur-[2px] drop-shadow [image-rendering:_pixelated]"
-                }
-                style={transitionStyles.lowRes}
-                priority
-              />
-            )}
+            <Image
+              src={`${IMG_BASE_URL}w92${src}`}
+              alt={`A poster from the film ${title}`}
+              width={width}
+              height={height}
+              className="absolute rounded object-cover blur-[4px] drop-shadow [image-rendering:_pixelated]"
+              style={transitionStyles.lowRes}
+              priority
+            />
             <Image
               onLoad={handleImageOnLoad}
               src={`${IMG_BASE_URL}${fetchSize}${src}`}
               alt={`A poster from the film ${title}`}
               width={width}
               height={height}
-              className={
-                classes + " relative top-0 rounded object-cover drop-shadow"
-              }
+              className="top-0rounded relative h-auto w-auto object-cover drop-shadow"
               style={transitionStyles.highRes}
               priority
             />

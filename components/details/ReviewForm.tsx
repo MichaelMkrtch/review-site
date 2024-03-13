@@ -26,7 +26,7 @@ type ReviewObject = {
 
 export default function ReviewForm({ id, title, posterPath }: ReviewFormProps) {
   const [review, setReview] = useState<ReviewObject>();
-  const [rating, setRating] = useState<number>();
+  const [rating, setRating] = useState<number>(0);
 
   const modalContext = useModalContext();
   const textarea = useRef<HTMLTextAreaElement>(null);
@@ -35,7 +35,7 @@ export default function ReviewForm({ id, title, posterPath }: ReviewFormProps) {
     event.preventDefault();
 
     setReview((prevState) => {
-      if (textarea.current && rating) {
+      if (textarea.current && rating > 0) {
         return {
           ...prevState,
           id,
@@ -65,9 +65,9 @@ export default function ReviewForm({ id, title, posterPath }: ReviewFormProps) {
   return (
     <div className="flex h-full flex-col justify-between">
       <form
+        id="review-form"
         onSubmit={handleStoreReview}
         className="flex h-full flex-col"
-        id="review-form"
       >
         <div className="m-auto">
           {/* prevents MUI Rating component from auto-selecting on modal open */}
@@ -91,6 +91,7 @@ export default function ReviewForm({ id, title, posterPath }: ReviewFormProps) {
           rows={4}
           placeholder="Write your review here"
           className="block w-full resize-none rounded bg-[#232323] p-2 placeholder:text-[#434343] focus:outline-none"
+          required
         ></textarea>
       </form>
     </div>
