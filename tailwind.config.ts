@@ -17,6 +17,9 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      boxShadow: {
+        edge: "inset 0 1px 0 0 rgba(255, 255, 255, 0.03), inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 0 2px 1px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 8px 8px 0 rgba(0, 0, 0, 0.1)",
+      },
       colors: {
         cyan: {
           250: "#70f5ff",
@@ -46,9 +49,7 @@ const config: Config = {
           "100%": { transform: "scale(1)", opacity: "100" },
         },
       },
-      screens: {
-        
-      }
+      screens: {},
     },
   },
   plugins: [],

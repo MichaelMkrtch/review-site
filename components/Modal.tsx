@@ -32,7 +32,7 @@ export default function Modal({
   }, []);
 
   let classes =
-    "w-3/5 max-w-[50%] rounded-xl outline-none drop-shadow-lg text-[#D3D4D9] backdrop:bg-neutral-950 backdrop:opacity-70 open:animate-enter open:backdrop:animate-fadein";
+    " shadow-edge w-3/5 max-w-[800px] rounded-xl outline-none text-[#D3D4D9] backdrop:bg-neutral-950 backdrop:opacity-70 open:animate-enter open:backdrop:animate-fadein";
 
   if (hasPadding) {
     classes += " h-[421px] px-3 py-3.5 bg-[#232323]";

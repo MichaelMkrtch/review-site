@@ -15,7 +15,7 @@ export default function NavMenu() {
 
   return (
     <nav>
-      <ul className="flex w-full items-center justify-end">
+      <ul className="flex w-full items-center justify-end tracking-wide">
         <li className="px-4">
           <Link href="/films">Films</Link>
         </li>

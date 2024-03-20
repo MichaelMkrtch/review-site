@@ -18,7 +18,7 @@ export default function Header() {
       <header className="flex items-center justify-between py-8">
         <div>
           <Link href="/" className="w-1/4">
-            <h1 className="text-2xl">Review Site</h1>
+            <h1 className="text-3xl font-bold">Review Site</h1>
           </Link>
         </div>
         <NavMenu />

@@ -27,7 +27,7 @@ export default function Poster({
   let perspectiveClasses = "";
   if (isLoaded) {
     perspectiveClasses =
-      "group relative transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.1)]";
+      "group rounded relative transition-transform ease-out hover:[transform:rotateX(var(--x-rotation))_rotateY(var(--y-rotation))_scale(1.1)]";
   }
 
   return (
@@ -79,7 +79,7 @@ export default function Poster({
               alt={`A poster from the film ${title}`}
               width={width}
               height={height}
-              className="top-0rounded relative h-auto w-auto object-cover drop-shadow"
+              className="top-0 rounded relative h-auto w-auto object-cover drop-shadow"
               style={transitionStyles.highRes}
               priority
             />
